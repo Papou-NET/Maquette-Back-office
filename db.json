@@ -1,0 +1,275 @@
+{
+  "admins": [
+    {
+      "id": "1",
+      "username": "admin 1",
+      "password": "admin1"
+    },
+    {
+      "id": "2",
+      "username": "admin 2",
+      "password": "admin2"
+    }
+  ],
+  "appartements": [
+    {
+      "id": "1",
+      "batiment": "A",
+      "etage": "Rez de chaussez",
+      "lot": "AOO1",
+      "Typologie": "Appartement",
+      "Surface": "50",
+      "Status": "Vendu"
+    },
+    {
+      "id": "2",
+      "batiment": "D",
+      "etage": "4",
+      "lot": "A002",
+      "Typologie": "Studio",
+      "Surface": "70",
+      "Status": "Vendu"
+    },
+    {
+      "id": "3",
+      "batiment": "A",
+      "etage": "Rez de chaussez",
+      "lot": "A003",
+      "Typologie": "Appartement",
+      "Surface": "46",
+      "Status": "Réservé"
+    },
+    {
+      "id": "4",
+      "batiment": "B",
+      "etage": "2",
+      "lot": "B001",
+      "Typologie": "Appartement",
+      "Surface": "80",
+      "Status": "Réservé"
+    },
+    {
+      "id": "5",
+      "batiment": "C",
+      "etage": "9",
+      "lot": "C001",
+      "Typologie": "Appartement",
+      "Surface": "80",
+      "Status": "Réservé"
+    },
+    {
+      "id": "6",
+      "batiment": "A",
+      "etage": "10",
+      "lot": "A004",
+      "Typologie": "Appartement",
+      "Surface": "57",
+      "Status": "Disponible"
+    },
+    {
+      "id": "7",
+      "batiment": "C",
+      "etage": "2",
+      "lot": "C002",
+      "Typologie": "Appartement",
+      "Surface": "65",
+      "Status": "Vendu"
+    },
+    {
+      "id": "8",
+      "batiment": "B",
+      "etage": "12",
+      "lot": "B002",
+      "Typologie": "Studio",
+      "Surface": "50",
+      "Status": "Disponible"
+    },
+    {
+      "id": "9",
+      "batiment": "C",
+      "etage": "5",
+      "lot": "C003",
+      "Typologie": "Studio",
+      "Surface": "23",
+      "Status": "Vendu"
+    },
+    {
+      "id": "10",
+      "batiment": "A",
+      "etage": "Rez de chaussez",
+      "lot": "A005",
+      "Typologie": "Appartement",
+      "Surface": "15",
+      "Status": "Disponible"
+    },
+    {
+      "id": "11",
+      "batiment": "B",
+      "etage": "7",
+      "lot": "B003",
+      "Typologie": "Appartement",
+      "Surface": "50",
+      "Status": "Vendu"
+    }
+  ],
+  "clients": [
+    {
+      "id": "2",
+      "photo": "C:\\fakepath\\Kuroko no Basket 2 (VF) - Kuroko no Basket (Saison 2) - 07 VF - 07 - Voiranime - frame at 6m6s.jpg",
+      "nom": "RAZAFINDRAKOTO",
+      "prenoms": "Bernard Honoré",
+      "contact": 39487594,
+      "email": "bernard91@gmail.com",
+      "adresse": "42, Rue Richer",
+      "pays": "France",
+      "Ville": "Paris",
+      "CodePostal": "75009"
+    },
+    {
+      "id": "3",
+      "photo": "C:\\fakepath\\Kuroko no Basket 2 (VF) - Kuroko no Basket (Saison 2) - 07 VF - 07 - Voiranime - frame at 6m6s.jpg",
+      "nom": "RAZAFINDRAKOTO",
+      "prenoms": "Bernard Honoré",
+      "contact": 39487594,
+      "email": "bernard91@gmail.com",
+      "adresse": "42, Rue Richer",
+      "pays": "France",
+      "Ville": "Paris",
+      "CodePostal": "75009"
+    },
+    {
+      "id": "4",
+      "photo": "C:\\fakepath\\Kuroko no Basket 2 (VF) - Kuroko no Basket (Saison 2) - 07 VF - 07 - Voiranime - frame at 6m6s.jpg",
+      "nom": "RAZAFINDRAKOTO",
+      "prenoms": "Bernard Honoré",
+      "contact": 39487594,
+      "email": "bernard91@gmail.com",
+      "adresse": "42, Rue Richer",
+      "pays": "France",
+      "Ville": "Paris",
+      "CodePostal": "75009"
+    },
+    {
+      "id": "5",
+      "photo": "C:\\fakepath\\Kuroko no Basket 2 (VF) - Kuroko no Basket (Saison 2) - 07 VF - 07 - Voiranime - frame at 6m6s.jpg",
+      "nom": "RAZAFINDRAKOTO",
+      "prenoms": "Bernard Honoré",
+      "contact": 39487594,
+      "email": "bernard91@gmail.com",
+      "adresse": "42, Rue Richer",
+      "pays": "France",
+      "Ville": "Paris",
+      "CodePostal": "75009"
+    },
+    {
+      "id": "6",
+      "photo": "C:\\fakepath\\Kuroko no Basket 2 (VF) - Kuroko no Basket (Saison 2) - 07 VF - 07 - Voiranime - frame at 6m6s.jpg",
+      "nom": "RAZAFINDRAKOTO",
+      "prenoms": "Bernard Honoré",
+      "contact": 39487594,
+      "email": "bernard91@gmail.com",
+      "adresse": "42, Rue Richer",
+      "pays": "France",
+      "Ville": "Paris",
+      "CodePostal": "75009"
+    },
+    {
+      "id": "7",
+      "photo": "C:\\fakepath\\Kuroko no Basket 2 (VF) - Kuroko no Basket (Saison 2) - 07 VF - 07 - Voiranime - frame at 6m6s.jpg",
+      "nom": "RAZAFINDRAKOTO",
+      "prenoms": "Bernard Honoré",
+      "contact": 39487594,
+      "email": "bernard91@gmail.com",
+      "adresse": "42, Rue Richer",
+      "pays": "France",
+      "Ville": "Paris",
+      "CodePostal": "75009"
+    },
+    {
+      "id": "8",
+      "photo": "C:\\fakepath\\Kuroko no Basket 2 (VF) - Kuroko no Basket (Saison 2) - 07 VF - 07 - Voiranime - frame at 6m6s.jpg",
+      "nom": "RAZAFINDRAKOTO",
+      "prenoms": "Bernard Honoré",
+      "contact": 39487594,
+      "email": "bernard91@gmail.com",
+      "adresse": "42, Rue Richer",
+      "pays": "France",
+      "Ville": "Paris",
+      "CodePostal": "75009"
+    },
+    {
+      "id": "9",
+      "photo": "C:\\fakepath\\Kuroko no Basket 2 (VF) - Kuroko no Basket (Saison 2) - 07 VF - 07 - Voiranime - frame at 6m6s.jpg",
+      "nom": "RAZAFINDRAKOTO",
+      "prenoms": "Bernard Honoré",
+      "contact": 39487594,
+      "email": "bernard91@gmail.com",
+      "adresse": "42, Rue Richer",
+      "pays": "France",
+      "Ville": "Paris",
+      "CodePostal": "75009"
+    },
+    {
+      "id": "10",
+      "photo": "C:\\fakepath\\Kuroko no Basket 2 (VF) - Kuroko no Basket (Saison 2) - 07 VF - 07 - Voiranime - frame at 6m6s.jpg",
+      "nom": "RAZAFINDRAKOTO",
+      "prenoms": "Bernard Honoré",
+      "contact": 39487594,
+      "email": "bernard91@gmail.com",
+      "adresse": "42, Rue Richer",
+      "pays": "France",
+      "Ville": "Paris",
+      "CodePostal": "75009"
+    },
+    {
+      "id": "11",
+      "photo": "C:\\fakepath\\Kuroko no Basket 2 (VF) - Kuroko no Basket (Saison 2) - 07 VF - 07 - Voiranime - frame at 6m6s.jpg",
+      "nom": "RAZAFINDRAKOTO",
+      "prenoms": "Bernard Honoré",
+      "contact": 39487594,
+      "email": "bernard91@gmail.com",
+      "adresse": "42, Rue Richer",
+      "pays": "France",
+      "Ville": "Paris",
+      "CodePostal": "75009"
+    },
+    {
+      "id": "12",
+      "photo": "C:\\fakepath\\Kuroko no Basket 2 (VF) - Kuroko no Basket (Saison 2) - 07 VF - 07 - Voiranime - frame at 6m6s.jpg",
+      "nom": "RAZAFINDRAKOTO",
+      "prenoms": "Bernard Honoré",
+      "contact": 39487594,
+      "email": "bernard91@gmail.com",
+      "adresse": "42, Rue Richer",
+      "pays": "France",
+      "Ville": "Paris",
+      "CodePostal": "75009"
+    }
+  ],
+  "reservations": [
+    {
+      "id": "1",
+      "numero": 4,
+      "appartement": "A002",
+      "client": "RAZAFINDRAKOTO",
+      "dateDébut": "2025-05-01",
+      "dateFin": "2025-05-04"
+    },
+    {
+      "id": "2",
+      "numero": 5,
+      "appartement": "A002",
+      "client": "RAZAFINDRAKOTO",
+      "dateDébut": "2025-05-02",
+      "dateFin": "2025-05-04"
+    },
+    {
+      "id": "3",
+      "numero": 4,
+      "appartement": "A002",
+      "client": "RAZAFINDRAKOTO",
+      "dateDébut": "2025-05-03",
+      "dateFin": "2025-05-04"
+    }
+  ]
+}
