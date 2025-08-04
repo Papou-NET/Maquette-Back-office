@@ -32,10 +32,15 @@ const Reservation = ({toggledisplayreservation, getReservation, toggledisplayadd
         setSearch(key)
     }
 
+    const removeReservation = (id) => {
+        setTableData(prev=>prev.filter(reserv=>reserv.id !== id))
+    }
+
     return (
         <div>
             <Table thead={tableheader} tbody={tableData} tableFor="Reservations" toggledisplayreservation={toggledisplayreservation} 
-            getReservation={getReservation} addSearch={addSearch} search={search} toggledisplayaddreservation={toggledisplayaddreservation}/>
+            getReservation={getReservation} addSearch={addSearch} search={search}
+             toggledisplayaddreservation={toggledisplayaddreservation} removeReservation={removeReservation}/>
         </div>
     );
 }

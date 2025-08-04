@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import '../App.css'
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Login from '../Login';
 import Sidebar from '../Sidebar';
 import Dashboard from '../Dashboard';
@@ -63,6 +63,11 @@ const App = () => {
     setsidebarCollapsed(prev => !prev)
   }
 
+  const logout = () => {
+    localStorage.removeItem("admin")
+    localStorage.removeItem("token")
+    window.location.reload()
+  }
   return (
     <Fragment>
         {displayAdd && <AjouterClient toggleDisplayAdd={toggleDisplayAdd} />}
@@ -73,7 +78,8 @@ const App = () => {
         <BrowserRouter>
           <Routes>
 
-              <Route path='/' element={<Login />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/' element={<Navigate to="/dashboard" />} />
 
               <Route path='*' element= {
                  <PrivateRoute>
@@ -83,11 +89,11 @@ const App = () => {
                         justify-evenly items-center text-xl text-white'>
                           <MdOutlinePersonOutline className='cursor-pointer'/>
                           <IoSettingsSharp className='cursor-pointer'/>
-                          <RiLogoutBoxRLine className='cursor-pointer'/>
+                          <RiLogoutBoxRLine className='cursor-pointer' onClick={logout}/>
                         </div>
                         <div className={`absolute top-[70px] left-[10px]  right-[0] h-[90%] p-4 pr-[30px] z-10
                          transition-all duration-500 ease-in-out overflow-y-auto
-                          ${sidebarCollapsed ? 'md:left-[10px]' : 'md:left-[310px]'}`}>
+                          ${sidebarCollapsed ? 'lg:left-[10px]' : 'lg:left-[310px]'}`}>
                           <Routes>
                                 <Route path='/dashboard' element={<Dashboard />} />
                                 <Route path='/appartements' element={<Appartement />} />

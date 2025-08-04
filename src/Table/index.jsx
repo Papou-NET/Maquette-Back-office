@@ -4,8 +4,9 @@ import { AiOutlinePlusCircle } from 'react-icons/ai';
 import Pagination from '../Pagination';
 import { useNavigate } from 'react-router-dom';
 import { ClientsAPI, reservationAPI } from '../API/api';
+import Swal from 'sweetalert2';
 
-const Table = ({thead, tbody, tableFor, toggleDisplayAdd, getClient, toggleDisplayUpdateClient, toggleDisplayDetailClient, toggledisplayreservation, getReservation, addSearch, search, toggledisplayaddreservation}) => {
+const Table = ({thead, tbody, tableFor, toggleDisplayAdd, getClient, toggleDisplayUpdateClient, toggleDisplayDetailClient, removeClient, toggledisplayreservation, getReservation, removeReservation ,addSearch, search, toggledisplayaddreservation}) => {
     
     const [currentPage, setCurrentPage] = useState(1);
     const limit = 8
@@ -17,22 +18,55 @@ const Table = ({thead, tbody, tableFor, toggleDisplayAdd, getClient, toggleDispl
 
     const navigate = useNavigate()
 
-    const deleteClient = async (id) => {
-        try{
-            await ClientsAPI.delete(id)
-            alert("Supprimé avec succès")
-        }catch(err){    
-            console.log(err);
-        }
-    }
+    const deleteClient = async (e, id) => {
+        e.preventDefault();
+        Swal.fire({
+          title: `Êtes-vous sûr de supprimer le client d'id ${id} ?`,
+          text: 'Cette action est irréversible !',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Oui, supprimer !',
+          cancelButtonText: 'Annuler'
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            try {
+              await ClientsAPI.delete(id);
+              Swal.fire('Supprimé !', 'Le client a été supprimé avec succès', 'success');
+              removeClient(id)
+            } catch (err) {
+              console.error(err);
+              Swal.fire('Erreur', "Une erreur s'est produite lors de la suppression", 'error');
+            }
+          }
+        });
+      };
+      
 
     const deleteReservation = async (id) => {
-        try{
-            await reservationAPI.delete(id)
-            alert("Supprimé avec succès")
-        }catch(err){    
-            console.log(err);
-        }
+      
+        Swal.fire({
+            title: `Êtes-vous sûr de supprimer la réservation d'id ${id} ?`,
+            text: 'Cette action est irréversible !',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Oui, supprimer !',
+            cancelButtonText: 'Annuler'
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+              try {
+                await reservationAPI.delete(id)
+                Swal.fire('Supprimé !', 'La réservation a été supprimée avec succès', 'success');
+                removeReservation(id)
+              } catch (err) {
+                console.error(err);
+                Swal.fire('Erreur', "Une erreur s'est produite lors de la suppression", 'error');
+              }
+            }
+          });
     }
 
     return (
@@ -124,7 +158,7 @@ const Table = ({thead, tbody, tableFor, toggleDisplayAdd, getClient, toggleDispl
                                                         getClient(data.id)
                                                         toggleDisplayUpdateClient()
                                                     }}/>
-                                                    <FaTrash className="cursor-pointer" onClick={()=>deleteClient(data.id)}/>
+                                                    <FaTrash className="cursor-pointer" onClick={(e)=>deleteClient(e, data.id)}/>
                                                 </td>
                                             </>
                                         }

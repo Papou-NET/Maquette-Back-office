@@ -28,7 +28,11 @@ const Client = ({toggleDisplayAdd, getClient, toggleDisplayDetailClient, toggleD
         fetchData()
     },[search])
 
-    
+    const removeClient = (id) => {
+        setTableData((prev) => prev.filter(client => client.id !== id));
+      };
+      
+
     const addSearch = (key) => {
         setSearch(key)
     }
@@ -37,7 +41,7 @@ const Client = ({toggleDisplayAdd, getClient, toggleDisplayDetailClient, toggleD
         <div>
             <Table thead={tableheader} tbody={tableData} tableFor="Clients" toggleDisplayAdd={toggleDisplayAdd}
            toggleDisplayDetailClient={toggleDisplayDetailClient} toggleDisplayUpdateClient={toggleDisplayUpdateClient} getClient={getClient} 
-           addSearch={addSearch} search={search}/>
+           addSearch={addSearch} search={search} removeClient={removeClient}/>
         </div>
     );
 }

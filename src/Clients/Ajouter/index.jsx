@@ -1,105 +1,165 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { AiOutlineCloseCircle, AiOutlinePlusCircle } from 'react-icons/ai';
+import React, { useRef, useState } from 'react';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { LuUpload } from 'react-icons/lu';
 import { ClientsAPI } from '../../API/api';
+import Swal from 'sweetalert2';
 
-const AjouterClient = ({toggleDisplayAdd}) => {
+const AjouterClient = ({ toggleDisplayAdd }) => {
+  const fileRef = useRef();
 
-    const fileRef = useRef()
+  const initialData = {
+    photo: "",
+    nom: "",
+    prenoms: "",
+    email: "",
+    contact: "",
+    adresse: "",
+    CodePostal: "",
+    Ville: ""
+  };
 
-    const initialData = {
-        photo: "",
-        nom: "",
-        prenoms: "",
-        email: "",
-        contact: "",
-        adresse: "",
-        codePostal: "",
-        ville: ""
+  const [data, setData] = useState(initialData);
+
+  const handleClickFile = (e) => {
+    e.preventDefault();
+    fileRef.current.click();
+  };
+
+  const submitClient = async (e) => {
+    e.preventDefault();
+    try {
+      await ClientsAPI.create(data);
+      Swal.fire('Opération réussie !', 'Enregistrement effectué', 'success');
+      toggleDisplayAdd();
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+    } catch (err) {
+      console.log(err);
     }
+  };
 
-    const [data, setData] = useState(initialData)
-
-    const handleClickFile = (e) => {
-        e.preventDefault();
-        fileRef.current.click();
-    }
-
-    const submitClient = async (e) => {
-        e.preventDefault();
-        try{
-            await ClientsAPI.create(data)
-            alert("Enregistrement effectué !")
-        }catch(err) {
-            console.log(err);
-        }
-      
-
-    }
-
-    return (
-        <div className='fixed top-0 left-0 w-[100%] h-[100%] bg-[rgba(0,0,0,0.7)] z-80 flex items-center 
-        justify-center'>
-            <div className='w-[50%] h-auto bg-white rounded py-6 px-6 relative'>
-                <h2 className='text-xl font-bold'>Ajout client</h2>
-                <AiOutlineCloseCircle className='absolute top-0 right-0 text-xl cursor-pointer' onClick={toggleDisplayAdd}/> 
-                <form onSubmit={submitClient}>
-                    <div className='w-full flex gap-6 items-center mt-4'>
-                        <div className='w-[50%] flex items-center'>
-                            <button className='font-bold text-white py-3 rounded-md bg-[#aa8362] w-full
-                             w-full cursor-pointer flex justify-center' onClick={handleClickFile}><LuUpload className='text-2xl'/></button>
-                            <input type="file" className='hidden' ref={fileRef} value={data.photo}
-                             onChange={(e)=>setData({...data, photo: e.target.value})}/>
-                        </div>
-                        <span className='w-[50%] text-lg font-semibold'>
-                            Importer la photo de profil</span>
-                    </div>
-                    <div className='w-full flex gap-6 items-center mt-4'>
-                        <div className='w-[50%]'>
-                            <label className='font-semibold ml-2'>Nom *</label>
-                            <input type="text" className='block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full'
-                            value={data.nom} onChange={e=>setData({...data, nom: e.target.value})} required/>
-                        </div>
-                        <div className='w-[50%]'>
-                            <label className='font-semibold ml-2'>Prénoms *</label>
-                            <input type="text" className='block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full' 
-                            value={data.prenoms} onChange={e=>setData({...data, prenoms: e.target.value})} required/>
-                        </div>
-                    </div>
-                    <div className='w-full flex gap-6 items-center mt-4'>
-                        <div className='w-[50%]'>
-                            <label className='font-semibold ml-2'>E-mail *</label>
-                            <input type="text" className='block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full'
-                            value={data.email} onChange={e=>setData({...data, email: e.target.value})} required/>
-                        </div>
-                        <div className='w-[50%]'>
-                            <label className='font-semibold ml-2'>Contact</label>
-                            <input type="text" className='block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full' 
-                            value={data.contact} onChange={e=>setData({...data, contact: e.target.value})} required/>
-                        </div>
-                    </div>
-                    <div className='w-full mt-4'>
-                        <label className='font-semibold ml-2'>Adresse</label>
-                        <input type="text" className='block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full' 
-                        value={data.adresse} onChange={e=>setData({...data, adresse: e.target.value})} required/>
-                    </div>
-                    <div className='w-full flex gap-6 items-center mt-4'>
-                        <div className='w-[50%]'>
-                            <label className='font-semibold ml-2'>Code postal *</label>
-                            <input type="text" className='block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full' 
-                            value={data.codePostal} onChange={e=>setData({...data, codePostal: e.target.value})} required/>
-                        </div>
-                        <div className='w-[50%]'>
-                            <label className='font-semibold ml-2'>Ville</label>
-                            <input type="text" className='block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full' 
-                            value={data.ville} onChange={e=>setData({...data, ville: e.target.value})} />
-                        </div>
-                    </div>
-                    <button className='font-bold text-white py-3 rounded-md bg-[#aa8362] mt-4 w-full cursor-pointer'>Ajouter</button>
-                </form>
+  return (
+    <div className="fixed top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.7)] z-80 flex items-center justify-center p-2">
+      <div className="w-full sm:w-[80%] md:w-[60%] lg:w-[50%] max-h-[90%] bg-white rounded py-6 px-6 relative overflow-y-auto">
+        <h2 className="text-xl font-bold">Ajout client</h2>
+        <AiOutlineCloseCircle
+          className="absolute top-2 right-2 text-2xl cursor-pointer"
+          onClick={toggleDisplayAdd}
+        />
+        <form onSubmit={submitClient}>
+          {/* Photo */}
+          <div className="w-full flex flex-col sm:flex-row gap-4 mt-4">
+            <div className="w-full sm:w-1/2 flex items-center">
+              <button
+                className="font-bold text-white py-3 rounded-md bg-[#aa8362] w-full cursor-pointer flex justify-center"
+                onClick={handleClickFile}
+              >
+                <LuUpload className="text-2xl" />
+              </button>
+              <input
+                type="file"
+                className="hidden"
+                ref={fileRef}
+                onChange={(e) => setData({ ...data, photo: e.target.value })}
+              />
             </div>
-        </div>
-    );
-}
+            <span className="w-full sm:w-1/2 text-sm sm:text-lg font-semibold break-words">
+              {data.photo === "" ? "Importer la photo de profil" : data.photo}
+            </span>
+          </div>
+
+          {/* Nom & Prénoms */}
+          <div className="w-full flex flex-col sm:flex-row gap-4 mt-4">
+            <div className="w-full sm:w-1/2">
+              <label className="font-semibold ml-2">Nom *</label>
+              <input
+                type="text"
+                className="block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full"
+                value={data.nom}
+                onChange={(e) => setData({ ...data, nom: e.target.value })}
+                required
+              />
+            </div>
+            <div className="w-full sm:w-1/2">
+              <label className="font-semibold ml-2">Prénoms *</label>
+              <input
+                type="text"
+                className="block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full"
+                value={data.prenoms}
+                onChange={(e) => setData({ ...data, prenoms: e.target.value })}
+                required
+              />
+            </div>
+          </div>
+
+          {/* Email & Contact */}
+          <div className="w-full flex flex-col sm:flex-row gap-4 mt-4">
+            <div className="w-full sm:w-1/2">
+              <label className="font-semibold ml-2">E-mail *</label>
+              <input
+                type="email"
+                className="block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full"
+                value={data.email}
+                onChange={(e) => setData({ ...data, email: e.target.value })}
+                required
+              />
+            </div>
+            <div className="w-full sm:w-1/2">
+              <label className="font-semibold ml-2">Contact *</label>
+              <input
+                type="text"
+                className="block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full"
+                value={data.contact}
+                onChange={(e) => setData({ ...data, contact: e.target.value })}
+                required
+              />
+            </div>
+          </div>
+
+          {/* Adresse */}
+          <div className="w-full mt-4">
+            <label className="font-semibold ml-2">Adresse</label>
+            <input
+              type="text"
+              className="block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full"
+              value={data.adresse}
+              onChange={(e) => setData({ ...data, adresse: e.target.value })}
+              required
+            />
+          </div>
+
+          {/* Code Postal & Ville */}
+          <div className="w-full flex flex-col sm:flex-row gap-4 mt-4">
+            <div className="w-full sm:w-1/2">
+              <label className="font-semibold ml-2">Code postal *</label>
+              <input
+                type="text"
+                className="block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full"
+                value={data.CodePostal}
+                onChange={(e) => setData({ ...data, CodePostal: e.target.value })}
+                required
+              />
+            </div>
+            <div className="w-full sm:w-1/2">
+              <label className="font-semibold ml-2">Ville</label>
+              <input
+                type="text"
+                className="block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full"
+                value={data.Ville}
+                onChange={(e) => setData({ ...data, Ville: e.target.value })}
+              />
+            </div>
+          </div>
+
+          {/* Bouton Ajouter */}
+          <button className="font-bold text-white py-3 rounded-md bg-[#aa8362] mt-4 w-full cursor-pointer">
+            Ajouter
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
 
 export default AjouterClient;
