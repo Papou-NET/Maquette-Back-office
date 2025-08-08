@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Table from '../Table';
-import { useNavigate } from 'react-router-dom';
 import { appartementAPI } from '../API/api';
 
 const Appartement = () => {
-
-    const navigate = useNavigate()
 
     const tableheader = ["Batiment", "Etage", "Lot", 'Typologie', "Surface", "Statut", "Action"]
 

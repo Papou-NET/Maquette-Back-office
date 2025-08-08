@@ -134,7 +134,7 @@ const Table = ({thead, tbody, tableFor, toggleDisplayAdd, getClient, toggleDispl
                                         {
                                             tableFor==="Appartements" && 
                                             <>
-                                                <td className='py-3'>{data.immeuble.numImmeuble}</td>
+                                                <td className='py-3'>{data.immeuble?.numImmeuble}</td>
                                                 <td className='py-3'>{data.etageAppart}</td>
                                                 <td className='py-3'>{data.lotAppart}</td>
                                                 <td className='py-3'>{data.typologieAppart}</td>

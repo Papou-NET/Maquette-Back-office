@@ -40,7 +40,9 @@ export const appartementAPI = {
 
     count: () => api.get('/appartements/count'),
 
-    countByStatus: (status) => api.get(`/appartements/count/${status}`)
+    countByStatus: (status) => api.get(`/appartements/count/${status}`),
+
+    search: (lot) => api.get(`/appartements/search/${lot}`)
 
 }
 
@@ -56,7 +58,7 @@ export const ClientsAPI = {
 
     delete: (id) => api.delete(`/client/${id}`),
 
-    search: (nom) => api.get(`/client?nom=${nom}`)
+    search: (nom) => api.get(`/client/search/${nom}`)
 }
 
 
