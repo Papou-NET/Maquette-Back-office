@@ -72,7 +72,7 @@ export const reservationAPI = {
 
     delete: (id) => api.delete(`/reservation/${id}`),
 
-    search: (date) => api.get(`/reservation?dateDébut=${date}`),
+    search: (reference) => api.get(`/reservation/search/${reference}`),
 
     getDateReservation: (id) => api.get(`/reservation/appartement/${id}`),
 
