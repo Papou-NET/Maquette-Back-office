@@ -11,12 +11,13 @@ const AjoutReservation = ({ toggledisplayreservation }) => {
   const [displayAppartement, setdisplayAppartement] = useState(false);
 
   const initialData = {
-    offre: "Location",
+    type: "location",
     appartement: "",
     client: "",
-    numero: "",
-    dateDébut: "",
-    dateFin: ""
+    reference: "",
+    dateDeb: null,
+    dateFin: null,
+    dateVente: null
   };
 
   const [clientClicked, setclientClicked] = useState("");
@@ -25,7 +26,7 @@ const AjoutReservation = ({ toggledisplayreservation }) => {
 
   const submitReservation = async (e) => {
     e.preventDefault();
-    const newData = { ...data, appartement: appartClicked, client: clientClicked };
+    const newData = { ...data, appartement: appartClicked.idAppart, client: clientClicked.id };
     try {
       await reservationAPI.create(newData);
       Swal.fire('Opération réussie !', 'Enregistrement éffectué avec succès', 'success');
@@ -86,23 +87,23 @@ const AjoutReservation = ({ toggledisplayreservation }) => {
             <input
               type="text"
               className="block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full"
-              value={data.numero}
-              onChange={e => setData({ ...data, numero: e.target.value })}
+              value={data.reference}
+              onChange={e => setData({ ...data, reference: e.target.value })}
               required
             />
           </div>
 
-          {/* Offre */}
+          {/* type */}
           <div className="w-full mt-4">
-            <label className="font-semibold ml-2">Type d'offre</label>
+            <label className="font-semibold ml-2">Type d'type</label>
             <select
               className="block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full"
-              value={data.offre}
-              onChange={e => setData({ ...data, offre: e.target.value })}
+              value={data.type}
+              onChange={e => setData({ ...data, type: e.target.value })}
               required
             >
-              <option value="Location">Location</option>
-              <option value="Vente">Vente</option>
+              <option value="location">Location</option>
+              <option value="vente">Vente</option>
             </select>
           </div>
 
@@ -113,7 +114,7 @@ const AjoutReservation = ({ toggledisplayreservation }) => {
               <input
                 type="text"
                 className="block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full bg-gray-200"
-                value={appartClicked}
+                value={appartClicked ? appartClicked.lotAppart : ""}
                 disabled
                 required
               />
@@ -128,7 +129,7 @@ const AjoutReservation = ({ toggledisplayreservation }) => {
               <input
                 type="text"
                 className="block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full bg-gray-200"
-                value={clientClicked}
+                value={clientClicked ? clientClicked.nom : ""}
                 disabled
                 required
               />
@@ -137,15 +138,15 @@ const AjoutReservation = ({ toggledisplayreservation }) => {
           </div>
 
           {/* Dates */}
-          {data.offre === "Location" ? (
+          {data.type === "location" ? (
             <div className="w-full flex flex-col md:flex-row gap-4 mt-4">
               <div className="w-full md:w-1/2">
                 <label className="font-semibold ml-2">Date début</label>
                 <input
                   type="date"
                   className="block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full"
-                  value={data.dateDébut}
-                  onChange={e => setData({ ...data, dateDébut: e.target.value })}
+                  value={data.dateDeb !=null ? data.dateDeb : ""}
+                  onChange={e => setData({ ...data, dateDeb: e.target.value })}
                   required
                 />
               </div>
@@ -154,7 +155,7 @@ const AjoutReservation = ({ toggledisplayreservation }) => {
                 <input
                   type="date"
                   className="block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full"
-                  value={data.dateFin}
+                  value={data.dateFin !==null ? data.dateFin : ""}
                   onChange={e => setData({ ...data, dateFin: e.target.value })}
                   required
                 />
@@ -166,8 +167,8 @@ const AjoutReservation = ({ toggledisplayreservation }) => {
               <input
                 type="date"
                 className="block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full"
-                value={data.dateDébut}
-                onChange={e => setData({ ...data, dateDébut: e.target.value })}
+                value={data.dateVente !==null ? data.dateVente : ""}
+                onChange={e => setData({ ...data, dateVente: e.target.value })}
                 required
               />
             </div>

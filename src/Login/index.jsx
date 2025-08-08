@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ImageLogin from "../assets/LoginImg.jpg";
 import { Link, useNavigate } from 'react-router-dom';
-import { login } from '../API/api';
+import { appartementAPI, login } from '../API/api';
 import Swal from 'sweetalert2';
+import { toast } from 'react-toastify';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -67,15 +68,19 @@ const Login = () => {
         if (username === "" || password === "") {
             Swal.fire('Action annulé !', 'Information incomplète', 'warning')
         } else {
-            await login(username, password)
-                .then((res) => {
-                    localStorage.setItem("token", res.token);
-                    localStorage.setItem("admin", JSON.stringify(res.admin));
-                    navigate("/dashboard");
-                })
-                .catch(() => {
-                    Swal.fire('Action annulé !', 'Identifiants non cohérentes', 'warning')
-                });
+            try{
+                const credentials = {username, password}
+                const res = await login(credentials)
+                console.log(res);
+                localStorage.setItem("token", res.data.token);
+                localStorage.setItem("admin", JSON.stringify(res.data.admin));
+                navigate("/dashboard");
+                toast.success(`Bienvenue ${res.data.admin.username}`)
+            }
+            catch (error) {
+                console.log('Erreur de connexion', error);
+                Swal.fire('Action annulé !', "Identifiants non cohérantes !", 'warning')
+              }
         }
     };
 

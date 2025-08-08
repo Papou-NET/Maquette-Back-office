@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { ClientsAPI, reservationAPI } from '../API/api';
 import Swal from 'sweetalert2';
 
-const Table = ({thead, tbody, tableFor, toggleDisplayAdd, getClient, toggleDisplayUpdateClient, toggleDisplayDetailClient, removeClient, toggledisplayreservation, getReservation, removeReservation ,addSearch, search, toggledisplayaddreservation}) => {
+const Table = ({thead, tbody, tableFor, toggleDisplayAdd, getClient, toggleDisplayUpdateClient, toggleDisplayDetailClient, removeClient, toggledisplayreservation, getReservation, removeReservation ,addSearch, search, toggledisplayaddreservation, reloadCard}) => {
     
     const [currentPage, setCurrentPage] = useState(1);
     const limit = 8
@@ -44,6 +44,11 @@ const Table = ({thead, tbody, tableFor, toggleDisplayAdd, getClient, toggleDispl
       };
       
 
+      const formatdDate = (dateString) => {
+        const date = new Date(dateString)
+        return date.toLocaleDateString('fr-FR')
+      }
+
     const deleteReservation = async (id) => {
       
         Swal.fire({
@@ -61,6 +66,7 @@ const Table = ({thead, tbody, tableFor, toggleDisplayAdd, getClient, toggleDispl
                 await reservationAPI.delete(id)
                 Swal.fire('Supprimé !', 'La réservation a été supprimée avec succès', 'success');
                 removeReservation(id)
+                reloadCard()
               } catch (err) {
                 console.error(err);
                 Swal.fire('Erreur', "Une erreur s'est produite lors de la suppression", 'error');
@@ -122,23 +128,23 @@ const Table = ({thead, tbody, tableFor, toggleDisplayAdd, getClient, toggleDispl
                         </thead>
                         <tbody>
                             {
-                                !tbody ? <p>Chargement...</p> :
+                                tbody.length === 0 ? <tr><td className='text-center py-2'>Chargement...</td></tr> :
                                 records.map((data, i)=> {
                                     return <tr key={i} className='text-right font-semibold'>
                                         {
                                             tableFor==="Appartements" && 
                                             <>
-                                                <td className='py-3'>{data.batiment}</td>
-                                                <td className='py-3'>{data.etage}</td>
-                                                <td className='py-3'>{data.lot}</td>
-                                                <td className='py-3'>{data.Typologie}</td>
-                                                <td className='py-3'>{data.Surface}</td>
-                                                <td className='py-3'>{data.Status}</td>
+                                                <td className='py-3'>{data.immeuble.numImmeuble}</td>
+                                                <td className='py-3'>{data.etageAppart}</td>
+                                                <td className='py-3'>{data.lotAppart}</td>
+                                                <td className='py-3'>{data.typologieAppart}</td>
+                                                <td className='py-3'>{data.surfaceAppart}</td>
+                                                <td className='py-3'>{data.statutAppart}</td>
                                                 <td className='flex gap-4 justify-center py-3'>
                                                     <FaEye className="cursor-pointer" 
-                                                    onClick={()=>navigate(`/appartements/${data.id}`)}/>
+                                                    onClick={()=>navigate(`/appartements/${data.idAppart}`)}/>
                                                     <FaEdit className="cursor-pointer"
-                                                     onClick={()=>navigate(`/appartements/modifier/${data.id}`)}/>
+                                                     onClick={()=>navigate(`/appartements/modifier/${data.idAppart}`)}/>
                                                 </td>
                                             </>
                                         }
@@ -165,11 +171,11 @@ const Table = ({thead, tbody, tableFor, toggleDisplayAdd, getClient, toggleDispl
                                         {
                                             tableFor==="Reservations" && 
                                             <>
-                                                <td className='py-3'>{data.numero}</td>
-                                                <td className='py-3'>{data.appartement}</td>
-                                                <td className='py-3'>{data.client}</td>
-                                                <td className='py-3'>{data.dateDébut}</td>
-                                                <td className='py-3'>{data.dateFin}</td>
+                                                <td className='py-3'>{data.reference}</td>
+                                                <td className='py-3'>{data.appartement ? data.appartement.lotAppart : ""}</td>
+                                                <td className='py-3'>{data.client ? data.client.nom : ""}</td>
+                                                <td className='py-3'>{data.dateDeb ? formatdDate(data.dateDeb) : `Vente(${formatdDate(data.dateVente)}))`}</td>
+                                                <td className='py-3'>{data.dateFin ? formatdDate(data.dateFin) : `Vente(${formatdDate(data.dateVente)})`}</td>
                                                 <td className='flex gap-4 justify-center py-3'>
                                                     <FaEye className="cursor-pointer" onClick={()=>{
                                                         getReservation(data.id)

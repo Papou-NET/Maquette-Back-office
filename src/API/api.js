@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const url = "http://localhost:3000"
+const url = "http://localhost:3001"
 
 const api = axios.create({
-    baseURL: "http://localhost:3000",
+    baseURL: "http://localhost:3001",
     headers: {
         "Content-Type": "application/json"
     }
@@ -21,6 +21,10 @@ api.interceptors.request.use(
 )
 
 
+export const login = (credentials) => {
+    return api.post('/admin/login', credentials)
+}
+
 //APPARTEMENTS
 
 export const appartementAPI = {
@@ -32,51 +36,53 @@ export const appartementAPI = {
 
     delete: (id) => api.delete(`/appartements/${id}`),
 
-    search: (lot) => api.get(`/appartements?lot=${lot}`)
+    search: (lot) => api.get(`/appartements?lot=${lot}`),
+
+    count: () => api.get('/appartements/count'),
+
+    countByStatus: (status) => api.get(`/appartements/count/${status}`)
+
 }
 
 //CLIENTS
 export const ClientsAPI = {
-    getAll: () => api.get('/clients'),
+    getAll: () => api.get('/client'),
 
-    getOne: (id) => api.get(`/clients/${id}`),
+    getOne: (id) => api.get(`/client/${id}`),
 
-    create: (data) => api.post('/clients', data),
+    create: (data) => api.post('/client', data),
 
-    update: (id, data) => api.patch(`/clients/${id}`, data),
+    update: (id, data) => api.patch(`/client/${id}`, data),
 
-    delete: (id) => api.delete(`/clients/${id}`),
+    delete: (id) => api.delete(`/client/${id}`),
 
-    search: (nom) => api.get(`/clients?nom=${nom}`)
+    search: (nom) => api.get(`/client?nom=${nom}`)
 }
 
 
 //RESERVATIONS
 export const reservationAPI = {
-    getAll: () => api.get('/reservations'),
+    getAll: () => api.get('/reservation'),
     
-    getOne: (id) => api.get(`/reservations/${id}`),
+    getOne: (id) => api.get(`/reservation/${id}`),
 
-    create: (data) => api.post('/reservations', data),
+    create: (data) => api.post('/reservation', data),
 
-    delete: (id) => api.delete(`/reservations/${id}`),
+    delete: (id) => api.delete(`/reservation/${id}`),
 
-    search: (date) => api.get(`/reservations?dateDébut=${date}`)
+    search: (date) => api.get(`/reservation?dateDébut=${date}`),
+
+    getDateReservation: (id) => api.get(`/reservation/appartement/${id}`),
+
+    getLastFour: () => api.get('/reservation/lastFour')
 }
 
-export const login = async (username, password) => {
-    const admin = await axios.get(`${url}/admins?username=${username}&password=${password}`)
+// BATIMENTS
 
-    if(admin.data.length !== 0) {
-        return {
-            admin: admin.data,
-            token: "fake-jwt-token-" + Math.random().toString(36).substr(2)
-        }
-    }
-    else {
-        throw new Error("admin introuvable")
-    }
-    
+export const batimentAPI = {
+    getAll: () => api.get('/immeuble')
 }
+
+
 
 export default api;

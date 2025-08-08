@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { FaSearch } from 'react-icons/fa';
-import { ClientsAPI } from '../../API/api';
+import { batimentAPI } from '../../API/api';
 import Pagination from '../../Pagination';
+import Swal from 'sweetalert2';
 
-const RechercheClient = ({ handleDisplayClient, getClient, clientClicked, rejectClient }) => {
+const RechercheImmeuble = ({ handleDisplayImmo, getImmo, immoClicked, rejectImmo }) => {
   const [tableData, setTableData] = useState([]);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,9 +22,9 @@ const RechercheClient = ({ handleDisplayClient, getClient, clientClicked, reject
       try {
         let res;
         if (search !== "") {
-          res = await ClientsAPI.search(search);
+          res = await batimentAPI.search(search);
         } else {
-          res = await ClientsAPI.getAll();
+          res = await batimentAPI.getAll();
         }
         setTableData(res.data);
       } catch (err) {
@@ -38,7 +39,7 @@ const RechercheClient = ({ handleDisplayClient, getClient, clientClicked, reject
       <div className="w-[95%] md:w-[60%] lg:w-[40%] max-h-[90vh] overflow-y-auto bg-white rounded py-6 px-6 relative">
         <AiOutlineCloseCircle
           className="absolute top-2 right-2 text-2xl cursor-pointer"
-          onClick={handleDisplayClient}
+          onClick={handleDisplayImmo}
         />
 
         {/* Barre de recherche */}
@@ -53,9 +54,9 @@ const RechercheClient = ({ handleDisplayClient, getClient, clientClicked, reject
           <FaSearch className="absolute top-3 right-4 text-lg" />
         </div>
 
-        {/* Client sélectionné */}
+        {/* immoement sélectionné */}
         <h1 className="mt-2 text-center text-sm md:text-base">
-          {clientClicked ? `ID client : ${clientClicked.id}` : "Pas de client sélectionné"}
+          {immoClicked ? `ID immeuble : ${immoClicked.idImmeuble}` : "Aucun immoement sélectionné"}
         </h1>
 
         {/* Table */}
@@ -64,23 +65,23 @@ const RechercheClient = ({ handleDisplayClient, getClient, clientClicked, reject
             <thead className="bg-[#aa8362] text-white">
               <tr>
                 <th className="p-2">ID</th>
-                <th className="p-2">Nom</th>
-                <th className="p-2">Contact</th>
-                <th className="p-2">Email</th>
+                <th className="p-2">Numero</th>
               </tr>
             </thead>
             <tbody>
-              {records.map((client, index) => (
+              {records.map((immo, index) => (
                 <tr
                   key={index}
                   className={`cursor-pointer hover:bg-gray-700 hover:text-white transition-all 
-                    ${clientClicked.id === client.id ? 'bg-gray-700 text-white uppercase' : ''}`}
-                  onClick={() => getClient(client)}
+                    ${immoClicked === immo.id && immo.Status === "Disponible"
+                      ? 'bg-gray-700 text-white uppercase'
+                      : ''}`}
+                  onClick={() =>
+                      getImmo(immo)
+                  }
                 >
-                  <td className="p-2 text-center">{client.id}</td>
-                  <td className="p-2">{client.nom}</td>
-                  <td className="p-2">{client.contact}</td>
-                  <td className="p-2">{client.email}</td>
+                  <td className="p-2 text-center">{immo.idImmeuble}</td>
+                  <td className="p-2">{immo.numImmeuble}</td>
                 </tr>
               ))}
             </tbody>
@@ -100,13 +101,13 @@ const RechercheClient = ({ handleDisplayClient, getClient, clientClicked, reject
         <div className="flex flex-col sm:flex-row justify-around gap-2 mt-4">
           <button
             className="w-full sm:w-[45%] py-2 cursor-pointer bg-[#aa8362] text-white font-semibold rounded-md"
-            onClick={handleDisplayClient}
+            onClick={handleDisplayImmo}
           >
             Valider
           </button>
           <button
             className="w-full sm:w-[45%] py-2 cursor-pointer bg-[#45413e] text-white font-semibold rounded-md"
-            onClick={rejectClient}
+            onClick={rejectImmo}
           >
             Rejeter
           </button>
@@ -116,4 +117,4 @@ const RechercheClient = ({ handleDisplayClient, getClient, clientClicked, reject
   );
 };
 
-export default RechercheClient;
+export default RechercheImmeuble;

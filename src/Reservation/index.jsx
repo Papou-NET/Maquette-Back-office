@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Table from '../Table';
 import { reservationAPI } from '../API/api';
 
-const Reservation = ({toggledisplayreservation, getReservation, toggledisplayaddreservation}) => {
+const Reservation = ({toggledisplayreservation, getReservation, toggledisplayaddreservation, reloadCard}) => {
 
     const tableheader = ["Numero", "Appartements", "Clients", 'Début', "Fin", "Action"]
 
@@ -40,7 +40,7 @@ const Reservation = ({toggledisplayreservation, getReservation, toggledisplayadd
         <div>
             <Table thead={tableheader} tbody={tableData} tableFor="Reservations" toggledisplayreservation={toggledisplayreservation} 
             getReservation={getReservation} addSearch={addSearch} search={search}
-             toggledisplayaddreservation={toggledisplayaddreservation} removeReservation={removeReservation}/>
+             toggledisplayaddreservation={toggledisplayaddreservation} removeReservation={removeReservation} reloadCard={reloadCard}/>
         </div>
     );
 }

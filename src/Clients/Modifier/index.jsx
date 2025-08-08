@@ -14,8 +14,9 @@ const ModifierClient = ({ idClient, toggleDisplayUpdateClient }) => {
     email: "",
     contact: "",
     adresse: "",
-    CodePostal: "",
-    Ville: ""
+    codePostal: "",
+    ville: "",
+    pays: ""
   };
 
   const [data, setData] = useState(initialData);
@@ -36,8 +37,9 @@ const ModifierClient = ({ idClient, toggleDisplayUpdateClient }) => {
           contact: res.data.contact,
           email: res.data.email,
           adresse: res.data.adresse,
-          Ville: res.data.Ville,
-          CodePostal: res.data.CodePostal
+          ville: res.data.ville,
+          codePostal: res.data.codePostal,
+          pays: res.data.pays
         });
       } catch (error) {
         console.log(error);
@@ -52,6 +54,9 @@ const ModifierClient = ({ idClient, toggleDisplayUpdateClient }) => {
       await ClientsAPI.update(idClient, data);
       Swal.fire('Opération réussie !', 'La modification a été bien enregistrée', 'success');
       toggleDisplayUpdateClient();
+      setTimeout(()=>{
+        window.location.reload()
+      },3000)
     } catch (error) {
       console.log(error);
     }
@@ -135,16 +140,28 @@ const ModifierClient = ({ idClient, toggleDisplayUpdateClient }) => {
             </div>
           </div>
 
-          {/* Adresse */}
-          <div className="w-full mt-4">
-            <label className="font-semibold ml-2">Adresse</label>
-            <input
-              type="text"
-              className="block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full"
-              value={data.adresse}
-              onChange={(e) => setData({ ...data, adresse: e.target.value })}
-              required
-            />
+          {/* adresse et pays */}
+          <div className="w-full flex flex-col sm:flex-row gap-4 mt-4">
+            <div className="w-full sm:w-1/2">
+              <label className="font-semibold ml-2">Pays</label>
+              <input
+                type="text"
+                className="block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full"
+                value={data.pays}
+                onChange={(e) => setData({ ...data, pays: e.target.value })}
+                required
+              />
+            </div>
+            <div className="w-full sm:w-1/2">
+              <label className="font-semibold ml-2">Adresse</label>
+              <input
+                type="text"
+                className="block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full"
+                value={data.adresse}
+                onChange={(e) => setData({ ...data, adresse: e.target.value })}
+                required
+              />
+            </div>
           </div>
 
           {/* Code Postal & Ville */}
@@ -154,8 +171,8 @@ const ModifierClient = ({ idClient, toggleDisplayUpdateClient }) => {
               <input
                 type="text"
                 className="block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full"
-                value={data.CodePostal}
-                onChange={(e) => setData({ ...data, CodePostal: e.target.value })}
+                value={data.codePostal}
+                onChange={(e) => setData({ ...data, codePostal: e.target.value })}
                 required
               />
             </div>
@@ -164,8 +181,8 @@ const ModifierClient = ({ idClient, toggleDisplayUpdateClient }) => {
               <input
                 type="text"
                 className="block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full"
-                value={data.Ville}
-                onChange={(e) => setData({ ...data, Ville: e.target.value })}
+                value={data.ville}
+                onChange={(e) => setData({ ...data, ville: e.target.value })}
                 required
               />
             </div>

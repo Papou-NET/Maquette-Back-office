@@ -56,7 +56,7 @@ const RechercheAppartement = ({ handleDisplayAppartement, getAppart, appartClick
 
         {/* Appartement sélectionné */}
         <h1 className="mt-2 text-center text-sm md:text-base">
-          {appartClicked ? `ID appartement : ${appartClicked}` : "Aucun appartement sélectionné"}
+          {appartClicked ? `ID appartement : ${appartClicked.idAppart}` : "Aucun appartement sélectionné"}
         </h1>
 
         {/* Table */}
@@ -75,12 +75,12 @@ const RechercheAppartement = ({ handleDisplayAppartement, getAppart, appartClick
                 <tr
                   key={index}
                   className={`cursor-pointer hover:bg-gray-700 hover:text-white transition-all 
-                    ${appartClicked === appart.id && appart.Status === "Disponible"
+                    ${appartClicked.idAppart === appart.idAppart && appart.statutAppart === "Disponible"
                       ? 'bg-gray-700 text-white uppercase'
                       : ''}`}
                   onClick={() =>
-                    appart.Status === "Disponible"
-                      ? getAppart(appart.id)
+                    appart.statutAppart === "Disponible"
+                      ? getAppart(appart)
                       : Swal.fire(
                           'Appartement non disponible',
                           'Veuillez sélectionner un appartement disponible',
@@ -88,10 +88,10 @@ const RechercheAppartement = ({ handleDisplayAppartement, getAppart, appartClick
                         )
                   }
                 >
-                  <td className="p-2 text-center">{appart.id}</td>
-                  <td className="p-2">{appart.batiment}</td>
-                  <td className="p-2">{appart.lot}</td>
-                  <td className="p-2">{appart.Status}</td>
+                  <td className="p-2 text-center">{appart.idAppart}</td>
+                  <td className="p-2">{appart.immeuble.numero}</td>
+                  <td className="p-2">{appart.lotAppart}</td>
+                  <td className="p-2">{appart.statutAppart}</td>
                 </tr>
               ))}
             </tbody>

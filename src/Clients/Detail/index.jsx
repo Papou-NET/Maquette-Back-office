@@ -12,8 +12,8 @@ const DetailClient = ({ idClient, toggleDisplayDetailClient }) => {
     email: "",
     adresse: "",
     pays: "",
-    Ville: "",
-    CodePostal: ""
+    ville: "",
+    codePostal: ""
   });
 
   useEffect(() => {
@@ -28,8 +28,8 @@ const DetailClient = ({ idClient, toggleDisplayDetailClient }) => {
           email: res.data.email,
           adresse: res.data.adresse,
           pays: res.data.pays,
-          Ville: res.data.Ville,
-          CodePostal: res.data.CodePostal
+          ville: res.data.ville,
+          codePostal: res.data.codePostal
         });
       } catch (error) {
         console.log(error);
@@ -78,12 +78,12 @@ const DetailClient = ({ idClient, toggleDisplayDetailClient }) => {
 
             <div className="flex w-full justify-between items-center flex-wrap border-b py-2 mt-2">
               <h3 className="min-w-[150px] bg-gray-400 rounded text-right p-2">Ville</h3>
-              <p className="w-[50%] ml-4">{data.Ville}</p>
+              <p className="w-[50%] ml-4">{data.ville}</p>
             </div>
 
             <div className="flex w-full justify-between items-center flex-wrap border-b py-2 mt-2">
               <h3 className="min-w-[150px] bg-gray-400 rounded text-right p-2">Code postal</h3>
-              <p className="w-[50%] ml-4">{data.CodePostal}</p>
+              <p className="w-[50%] ml-4">{data.codePostal}</p>
             </div>
           </div>
         </div>

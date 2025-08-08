@@ -35,12 +35,13 @@ const Appartement = () => {
     const addSearch = (key) => {
         setSearch(key)
     }
-
-
+    
     return (
         <div>
-            <Table thead={tableheader} tbody={tableData} tableFor="Appartements" 
-            addSearch={addSearch} search={search}/>
+            {
+               <Table thead={tableheader} tbody={tableData} tableFor="Appartements" 
+                addSearch={addSearch} search={search}/> 
+            }
         </div>
     );
 }

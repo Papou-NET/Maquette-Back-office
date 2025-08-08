@@ -18,6 +18,7 @@ import DetailClient from '../Clients/Detail';
 import ModifierClient from '../Clients/Modifier';
 import DetailReservation from '../Reservation/Detail';
 import AjoutReservation from '../Reservation/Ajout';
+import { ToastContainer } from 'react-toastify';
 
 const App = () => {
 
@@ -29,6 +30,7 @@ const App = () => {
   const [displayAddReservaiton, setDisplayAddReservaiton] = useState(false);
   const [displayDetailReservaiton, setDisplayDetailReservaiton] = useState(false);
   const [idReservation, setIdRservation] = useState()
+  const [fetchCardData, setFetchCardData] = useState(0)
 
   const toggleDisplayAdd = () => {
     setDisplayAdd(prev => !prev)
@@ -63,6 +65,10 @@ const App = () => {
     setsidebarCollapsed(prev => !prev)
   }
 
+  const reloadCard = () => {
+    setFetchCardData(prev => prev +1)
+  }
+
   const logout = () => {
     localStorage.removeItem("admin")
     localStorage.removeItem("token")
@@ -70,6 +76,7 @@ const App = () => {
   }
   return (
     <Fragment>
+        <ToastContainer />
         {displayAdd && <AjouterClient toggleDisplayAdd={toggleDisplayAdd} />}
         {displayDetailClient && <DetailClient toggleDisplayDetailClient={toggleDisplayDetailClient} idClient={idClient} />}
         {displayUpdateClient && <ModifierClient toggleDisplayUpdateClient={toggleDisplayUpdateClient} idClient={idClient} />}
@@ -95,14 +102,14 @@ const App = () => {
                          transition-all duration-500 ease-in-out overflow-y-auto
                           ${sidebarCollapsed ? 'lg:left-[10px]' : 'lg:left-[310px]'}`}>
                           <Routes>
-                                <Route path='/dashboard' element={<Dashboard />} />
+                                <Route path='/dashboard' element={<Dashboard fetchCardData={fetchCardData}/>} />
                                 <Route path='/appartements' element={<Appartement />} />
                                 <Route path='/appartements/:id' element={<DetailAppartement />} />
-                                <Route path='/appartements/modifier/:id' element={<ModifierAppartement />} />
+                                <Route path='/appartements/modifier/:id' element={<ModifierAppartement reloadCard={reloadCard} />} />
                                 <Route path='/clients' element={<Client toggleDisplayAdd={toggleDisplayAdd} toggleDisplayUpdateClient={toggleDisplayUpdateClient} 
                                 toggleDisplayDetailClient={toggleDisplayDetailClient} getClient={getClient} />} />
                                 <Route path='/reservations' element={<Reservation toggledisplayreservation={toggledisplayreservation}
-                                 getReservation={getReservation} toggledisplayaddreservation={toggledisplayaddreservation} />}/>
+                                 getReservation={getReservation} toggledisplayaddreservation={toggledisplayaddreservation} reloadCard={reloadCard}/>}/>
                           </Routes>
                         </div>
                     </div>

@@ -14,8 +14,9 @@ const AjouterClient = ({ toggleDisplayAdd }) => {
     email: "",
     contact: "",
     adresse: "",
-    CodePostal: "",
-    Ville: ""
+    codePostal: "",
+    ville: "",
+    pays: ""
   };
 
   const [data, setData] = useState(initialData);
@@ -27,8 +28,9 @@ const AjouterClient = ({ toggleDisplayAdd }) => {
 
   const submitClient = async (e) => {
     e.preventDefault();
+    const {photo, ...newData} = data
     try {
-      await ClientsAPI.create(data);
+      await ClientsAPI.create(newData);
       Swal.fire('Opération réussie !', 'Enregistrement effectué', 'success');
       toggleDisplayAdd();
       setTimeout(() => {
@@ -117,37 +119,50 @@ const AjouterClient = ({ toggleDisplayAdd }) => {
             </div>
           </div>
 
-          {/* Adresse */}
-          <div className="w-full mt-4">
-            <label className="font-semibold ml-2">Adresse</label>
-            <input
-              type="text"
-              className="block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full"
-              value={data.adresse}
-              onChange={(e) => setData({ ...data, adresse: e.target.value })}
-              required
-            />
+          {/* Adresse et pays*/}
+          <div className="w-full flex flex-col sm:flex-row gap-4 mt-4">
+            <div className="w-full sm:w-1/2">
+              <label className="font-semibold ml-2">Pays</label>
+              <input
+                type="text"
+                className="block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full"
+                value={data.pays}
+                onChange={(e) => setData({ ...data, pays: e.target.value })}
+                required
+              />
+            </div>
+            <div className="w-full sm:w-1/2">
+              <label className="font-semibold ml-2">Adresse</label>
+              <input
+                type="text"
+                className="block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full"
+                value={data.adresse}
+                onChange={(e) => setData({ ...data, adresse: e.target.value })}
+                required
+              />
+            </div>
           </div>
+          
 
-          {/* Code Postal & Ville */}
+          {/* Code Postal & ville */}
           <div className="w-full flex flex-col sm:flex-row gap-4 mt-4">
             <div className="w-full sm:w-1/2">
               <label className="font-semibold ml-2">Code postal *</label>
               <input
                 type="text"
                 className="block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full"
-                value={data.CodePostal}
-                onChange={(e) => setData({ ...data, CodePostal: e.target.value })}
+                value={data.codePostal}
+                onChange={(e) => setData({ ...data, codePostal: e.target.value })}
                 required
               />
             </div>
             <div className="w-full sm:w-1/2">
-              <label className="font-semibold ml-2">Ville</label>
+              <label className="font-semibold ml-2">ville</label>
               <input
                 type="text"
                 className="block border-2 border-gray-500 rounded px-4 py-2 outline-none w-full"
-                value={data.Ville}
-                onChange={(e) => setData({ ...data, Ville: e.target.value })}
+                value={data.ville}
+                onChange={(e) => setData({ ...data, ville: e.target.value })}
               />
             </div>
           </div>

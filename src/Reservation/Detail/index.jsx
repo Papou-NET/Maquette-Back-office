@@ -5,18 +5,30 @@ import { reservationAPI } from '../../API/api';
 
 const DetailReservation = ({ toggledisplayreservation, idReservation }) => {
   const [data, setdata] = useState({
-    numero: 0,
     appartement: "",
     client: "",
-    dateDébut: "",
-    dateFin: ""
+    dateDeb: "",
+    dateFin: "",
+    dateVente: "",
+    type:""
   });
+
+  const formatdDate = (dateString) => {
+    const date = new Date(dateString)
+    return date.toLocaleDateString('fr-FR')
+  }
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await reservationAPI.getOne(idReservation);
-      setdata(res.data);
-      console.log(res.data);
+      setdata({
+        appartement: res.data.appartement,
+        client: res.data.client,
+        dateDeb: formatdDate(res.data.dateDeb),
+        dateFin: formatdDate(res.data.dateFin),
+        dateVente: formatdDate(res.data.dateVente),
+        type: res.data.type
+      });
     };
     fetchData();
   }, []);
@@ -42,23 +54,41 @@ const DetailReservation = ({ toggledisplayreservation, idReservation }) => {
           <div className="w-full md:w-1/2">
             <div className="flex w-full justify-between items-center flex-wrap border-b py-2">
               <h3 className="min-w-[150px] bg-gray-400 rounded text-right p-2">Appartement</h3>
-              <p className="w-[50%] ml-4">{data.appartement}</p>
+              <p className="w-[50%] ml-4">{data.appartement ? data.appartement.lotAppart : ""}</p>
             </div>
 
             <div className="flex w-full justify-between items-center flex-wrap border-b py-2 mt-2">
               <h3 className="min-w-[150px] bg-gray-400 rounded text-right p-2">Client</h3>
-              <p className="w-[50%] ml-4">{data.client}</p>
+              <p className="w-[50%] ml-4">{data.client ? data.client.nom : ""}</p>
             </div>
 
             <div className="flex w-full justify-between items-center flex-wrap border-b py-2 mt-2">
-              <h3 className="min-w-[150px] bg-gray-400 rounded text-right p-2">Date de début</h3>
-              <p className="w-[50%] ml-4">{data.dateDébut}</p>
+              <h3 className="min-w-[150px] bg-gray-400 rounded text-right p-2">Type d'offre</h3>
+              <p className="w-[50%] ml-4">{data.type}</p>
             </div>
 
-            <div className="flex w-full justify-between items-center flex-wrap border-b py-2 mt-2">
-              <h3 className="min-w-[150px] bg-gray-400 rounded text-right p-2">Date fin</h3>
-              <p className="w-[50%] ml-4">{data.dateFin}</p>
-            </div>
+            {
+              data.type === "location" && 
+
+                 <div className="flex w-full justify-between items-center flex-wrap border-b py-2 mt-2">
+                    <h3 className="min-w-[150px] bg-gray-400 rounded text-right p-2">Date de début</h3>
+                    <p className="w-[50%] ml-4">{data.dateDeb}</p>
+                  </div>
+            }
+            {
+                 data.type === "location" && 
+                  <div className="flex w-full justify-between items-center flex-wrap border-b py-2 mt-2">
+                    <h3 className="min-w-[150px] bg-gray-400 rounded text-right p-2">Date fin</h3>
+                    <p className="w-[50%] ml-4">{data.dateFin}</p>
+                  </div>
+            }
+            {
+               data.type === "vente" && 
+              <div className="flex w-full justify-between items-center flex-wrap border-b py-2 mt-2">
+                <h3 className="min-w-[150px] bg-gray-400 rounded text-right p-2">Date de vente</h3>
+                <p className="w-[50%] ml-4">{data.dateVente}</p>
+              </div>
+            }
           </div>
         </div>
       </div>
