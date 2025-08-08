@@ -71,9 +71,8 @@ const Login = () => {
             try{
                 const credentials = {username, password}
                 const res = await login(credentials)
-                console.log(res);
-                localStorage.setItem("token", res.data.token);
-                localStorage.setItem("admin", JSON.stringify(res.data.admin));
+                sessionStorage.setItem("token", res.data.token);
+                sessionStorage.setItem("admin", JSON.stringify(res.data.admin));
                 navigate("/dashboard");
                 toast.success(`Bienvenue ${res.data.admin.username}`)
             }
@@ -133,18 +132,9 @@ const Login = () => {
                         />
                     </div>
 
-                    <div className="mt-4 flex flex-col sm:flex-row justify-between gap-2 text-sm">
-                        <div>
-                            <input type="checkbox" className="mr-2" /> Se souvenir de moi
-                        </div>
-                        <div>
-                            <Link className="hover:underline">Mot de passe oublié</Link>
-                        </div>
-                    </div>
-
                     <button
                         type="submit"
-                        className="mt-6 bg-[#aa8362] w-full py-3 text-white font-semibold rounded-md cursor-pointer"
+                        className="mt-10 bg-[#aa8362] w-full py-3 text-white font-semibold rounded-md cursor-pointer"
                     >
                         Se connecter
                     </button>

@@ -46,7 +46,7 @@ const Dashboard = ({fetchCardData}) => {
                 <div className='w-full h-auto h-auto flex justify-center flex-wrap gap-[50px] mt-[25px]'>
                    <div className='p-1 rounded-2xl border-3 border-[#000] w-[90%] h-[300px] md:h-[400px] md:w-[60%]'>
                         <div className='overflow-auto w-full h-full p-1'>
-                            <BarChartCard />
+                            <BarChartCard fetchCardData={fetchCardData}/>
                         </div>
                    </div>
                     <RecentActivities fetchCardData={fetchCardData}/> 

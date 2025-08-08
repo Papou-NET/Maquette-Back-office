@@ -24,6 +24,12 @@ const Sidebar = ({sidebarCollapsed, toggleSidebar}) => {
             toggleSidebar()
         }
     }
+
+    const logout = () => {
+      sessionStorage.removeItem("admin")
+      sessionStorage.removeItem("token")
+      window.location.reload()
+    }
     
     return (
         <div className={`fixed top-[10px] left-[10px] right-[10px] bg-[#aa8362] z-20 transition-all duration-500 ease-in-out overflow-hidden
@@ -33,7 +39,7 @@ const Sidebar = ({sidebarCollapsed, toggleSidebar}) => {
             <div className='w-[140px] h-[50px] rounded-2xl bg-[#aa8362] sm:hidden flex justify-evenly items-center text-xl text-white'>
                 <MdOutlinePersonOutline className='cursor-pointer'/>
                 <IoSettingsSharp className='cursor-pointer'/>
-                <RiLogoutBoxRLine className='cursor-pointer'/>
+                <RiLogoutBoxRLine className='cursor-pointer' onClick={logout}/>
             </div>
             <button className=' w-[20px] h-[20px] cursor-pointer text-2xl text-white' onClick={toggleSidebar}>
               <FaBars />

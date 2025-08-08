@@ -11,7 +11,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
     (config)=> {
-        const token = localStorage.getItem("token")
+        const token = sessionStorage.getItem("token")
         if(token) {
             config.headers.Authorization = `Bearer ${token}`
         }
@@ -76,7 +76,9 @@ export const reservationAPI = {
 
     getDateReservation: (id) => api.get(`/reservation/appartement/${id}`),
 
-    getLastFour: () => api.get('/reservation/lastFour')
+    getLastFour: () => api.get('/reservation/lastFour'),
+
+    getBarChart: (year) => api.get(`/reservation/reservationParMois/${year}`)
 }
 
 // BATIMENTS

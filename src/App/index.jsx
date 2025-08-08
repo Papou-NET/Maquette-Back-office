@@ -70,8 +70,8 @@ const App = () => {
   }
 
   const logout = () => {
-    localStorage.removeItem("admin")
-    localStorage.removeItem("token")
+    sessionStorage.removeItem("admin")
+    sessionStorage.removeItem("token")
     window.location.reload()
   }
   return (
