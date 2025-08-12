@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const url = "http://localhost:3001"
+const url = "https://back-end-bades.onrender.com"
 
 const api = axios.create({
-    baseURL: "http://localhost:3001",
+    baseURL: "https://back-end-bades.onrender.com",
     headers: {
         "Content-Type": "application/json"
     }
