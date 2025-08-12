@@ -8,7 +8,6 @@ const AjouterClient = ({ toggleDisplayAdd }) => {
   const fileRef = useRef();
 
   const initialData = {
-    photo: "",
     nom: "",
     prenoms: "",
     email: "",
@@ -28,9 +27,8 @@ const AjouterClient = ({ toggleDisplayAdd }) => {
 
   const submitClient = async (e) => {
     e.preventDefault();
-    const {photo, ...newData} = data
     try {
-      await ClientsAPI.create(newData);
+      await ClientsAPI.create(data);
       Swal.fire('Opération réussie !', 'Enregistrement effectué', 'success');
       toggleDisplayAdd();
       setTimeout(() => {
@@ -50,26 +48,6 @@ const AjouterClient = ({ toggleDisplayAdd }) => {
           onClick={toggleDisplayAdd}
         />
         <form onSubmit={submitClient}>
-          {/* Photo */}
-          <div className="w-full flex flex-col sm:flex-row gap-4 mt-4">
-            <div className="w-full sm:w-1/2 flex items-center">
-              <button
-                className="font-bold text-white py-3 rounded-md bg-[#aa8362] w-full cursor-pointer flex justify-center"
-                onClick={handleClickFile}
-              >
-                <LuUpload className="text-2xl" />
-              </button>
-              <input
-                type="file"
-                className="hidden"
-                ref={fileRef}
-                onChange={(e) => setData({ ...data, photo: e.target.value })}
-              />
-            </div>
-            <span className="w-full sm:w-1/2 text-sm sm:text-lg font-semibold break-words">
-              {data.photo === "" ? "Importer la photo de profil" : data.photo}
-            </span>
-          </div>
 
           {/* Nom & Prénoms */}
           <div className="w-full flex flex-col sm:flex-row gap-4 mt-4">

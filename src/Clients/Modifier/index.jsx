@@ -71,26 +71,6 @@ const ModifierClient = ({ idClient, toggleDisplayUpdateClient }) => {
           onClick={toggleDisplayUpdateClient}
         />
         <form onSubmit={submitClient}>
-          {/* Upload */}
-          <div className="w-full flex flex-col md:flex-row gap-4 items-center mt-4">
-            <div className="w-full md:w-1/2 flex items-center">
-              <button
-                className="font-bold text-white py-3 rounded-md bg-[#aa8362] w-full cursor-pointer flex justify-center"
-                onClick={handleClickFile}
-              >
-                <LuUpload className="text-2xl" />
-              </button>
-              <input
-                type="file"
-                className="hidden"
-                ref={fileRef}
-                onChange={(e) => setData({ ...data, photo: e.target.value })}
-              />
-            </div>
-            <span className="w-full md:w-1/2 text-sm md:text-lg font-semibold text-center md:text-left">
-              {data.photo === "" ? "Importer la photo de profil" : data.photo}
-            </span>
-          </div>
 
           {/* Nom & Prénoms */}
           <div className="w-full flex flex-col md:flex-row gap-4 mt-4">
