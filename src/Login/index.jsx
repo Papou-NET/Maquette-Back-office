@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import ImageLogin from "../assets/LoginImg.jpg";
+import ImageLogin from "../assets/login_image.png";
 import { Link, useNavigate } from 'react-router-dom';
 import { appartementAPI, login } from '../API/api';
 import Swal from 'sweetalert2';
@@ -86,8 +86,8 @@ const Login = () => {
     return (
         <div className="w-full h-screen flex flex-col md:flex-row gap-6 p-4 md:p-9">
             {/* Image */}
-            <div className="w-full md:w-1/2 h-48 md:h-full rounded-xl overflow-hidden">
-                <img src={ImageLogin} className="w-full h-full object-cover" />
+            <div className="w-full md:w-1/2 md:h-full rounded-xl overflow-hidden">
+                <img src={ImageLogin} className="object-cover" />
             </div>
 
             {/* Formulaire */}

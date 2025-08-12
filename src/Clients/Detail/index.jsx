@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import homme from '../../assets/homme.jpg';
+import homme from '../../assets/utilisateur.png';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { ClientsAPI } from '../../API/api';
 
