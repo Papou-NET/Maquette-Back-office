@@ -130,16 +130,20 @@ const Table = ({thead, tbody, tableFor, toggleDisplayAdd, getClient, toggleDispl
                             {
                                 tbody.length === 0 ? <tr><td className='text-center py-2'>Chargement...</td></tr> :
                                 records.map((data, i)=> {
-                                    return <tr key={i} className='text-right font-semibold'>
+                                    const rowClass =
+                                    i % 2 === 0
+                                    ? "bg-gray-200 text-black"
+                                    : "bg-gray-300 text-black";
+                                    return  <tr key={i} className={`text-right font-semibold ${rowClass}`}>
                                         {
                                             tableFor==="Appartements" && 
                                             <>
-                                                <td className='py-3'>{data.immeuble?.numImmeuble}</td>
-                                                <td className='py-3'>{data.etageAppart}</td>
-                                                <td className='py-3'>{data.lotAppart}</td>
-                                                <td className='py-3'>{data.typologieAppart}</td>
-                                                <td className='py-3'>{data.surfaceAppart}</td>
-                                                <td className='py-3'>{data.statutAppart}</td>
+                                                <td className='py-3 pr-2'>{data.immeuble?.numImmeuble}</td>
+                                                <td className='py-3 pr-2'>{data.etageAppart}</td>
+                                                <td className='py-3 pr-2'>{data.lotAppart}</td>
+                                                <td className='py-3 pr-2'>{data.typologieAppart}</td>
+                                                <td className='py-3 pr-2'>{data.surfaceAppart}</td>
+                                                <td className='py-3 pr-2'>{data.statutAppart}</td>
                                                 <td className='flex gap-4 justify-center py-3'>
                                                     <FaEye className="cursor-pointer" 
                                                     onClick={()=>navigate(`/appartements/${data.idAppart}`)}/>
@@ -151,10 +155,10 @@ const Table = ({thead, tbody, tableFor, toggleDisplayAdd, getClient, toggleDispl
                                         {
                                             tableFor==="Clients" && 
                                             <>
-                                                <td className='py-3'>{data.nom}</td>
-                                                <td className='py-3'>{data.prenoms}</td>
-                                                <td className='py-3'>{data.contact}</td>
-                                                <td className='py-3'>{data.email}</td>
+                                                <td className='py-3 pr-2'>{data.nom}</td>
+                                                <td className='py-3 pr-2'>{data.prenoms}</td>
+                                                <td className='py-3 pr-2'>{data.contact}</td>
+                                                <td className='py-3 pr-2'>{data.email}</td>
                                                 <td className='flex gap-4 justify-center py-3'>
                                                     <FaEye className="cursor-pointer" onClick={()=>{
                                                         getClient(data.id)
@@ -171,11 +175,11 @@ const Table = ({thead, tbody, tableFor, toggleDisplayAdd, getClient, toggleDispl
                                         {
                                             tableFor==="Reservations" && 
                                             <>
-                                                <td className='py-3'>{data.reference}</td>
-                                                <td className='py-3'>{data.appartement ? data.appartement.lotAppart : ""}</td>
-                                                <td className='py-3'>{data.client ? data.client.nom : ""}</td>
-                                                <td className='py-3'>{data.dateDeb ? formatdDate(data.dateDeb) : `Vente(${formatdDate(data.dateVente)}))`}</td>
-                                                <td className='py-3'>{data.dateFin ? formatdDate(data.dateFin) : `Vente(${formatdDate(data.dateVente)})`}</td>
+                                                <td className='py-3 pr-2'>{data.reference}</td>
+                                                <td className='py-3 pr-2'>{data.appartement ? data.appartement.lotAppart : ""}</td>
+                                                <td className='py-3 pr-2'>{data.client ? data.client.nom : ""}</td>
+                                                <td className='py-3 pr-2'>{data.dateDeb ? formatdDate(data.dateDeb) : `Vente(${formatdDate(data.dateVente)}))`}</td>
+                                                <td className='py-3 pr-2'>{data.dateFin ? formatdDate(data.dateFin) : `Vente(${formatdDate(data.dateVente)})`}</td>
                                                 <td className='flex gap-4 justify-center py-3'>
                                                     <FaEye className="cursor-pointer" onClick={()=>{
                                                         getReservation(data.id)
