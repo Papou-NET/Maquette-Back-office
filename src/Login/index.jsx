@@ -101,7 +101,7 @@ const Login = () => {
 
             {/* Logo */}
             <div className="relative flex justify-center items-center z-10 w-full md:w-1/2 md:h-full rounded-xl overflow-hidden">
-                <img src={ImageLogin} className='ml-20' />
+                <img src={ImageLogin} className="ml-0 md:ml-20" />
             </div>
 
             {/* Formulaire */}
