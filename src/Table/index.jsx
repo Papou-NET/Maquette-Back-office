@@ -85,7 +85,7 @@ const Table = ({thead, tbody, tableFor, toggleDisplayAdd, getClient, toggleDispl
                         <AiOutlinePlusCircle className='rounded-[25px] text-xl' /> <span className="hidden sm:block">
                             Ajouter nouveau client</span>
                     </button>
-                    <div className='border-2 border-[#aa8362] relative rounded-[25px] px-4 py-2'>
+                    <div className='border-2 border-[#125686] relative rounded-[25px] px-4 py-2'>
                         <input type="text" className='outline-none w-[200px] sm:w-[300px]' placeholder='Recherche' value={search} onChange={(e)=>addSearch(e.target.value)}/>
                         <FaSearch className='absolute top-3 right-2 text-lg'/>
                     </div> 
@@ -99,7 +99,7 @@ const Table = ({thead, tbody, tableFor, toggleDisplayAdd, getClient, toggleDispl
                         <AiOutlinePlusCircle className='rounded-[25px] text-xl' /> <span className="hidden sm:block">
                             Ajouter une réservation</span>
                     </button>
-                    <div className='border-2 border-[#aa8362] relative rounded-[25px] px-4 py-2'>
+                    <div className='border-2 border-[#125686] relative rounded-[25px] px-4 py-2'>
                         <input type="text" className='outline-none w-[200px] sm:w-[300px]' placeholder='Recherche' value={search} onChange={(e)=>addSearch(e.target.value)}/>
                         <FaSearch className='absolute top-3 right-2 text-lg'/>
                     </div> 
@@ -108,7 +108,7 @@ const Table = ({thead, tbody, tableFor, toggleDisplayAdd, getClient, toggleDispl
             {
                 tableFor === "Appartements" &&
                 <div className='flex justify-center sm:justify-end'>
-                    <div className='border-2 border-[#aa8362] relative rounded-[25px] px-4 py-2'>
+                    <div className='border-2 border-[#125686] relative rounded-[25px] px-4 py-2'>
                         <input type="text" className='outline-none w-[200px] sm:w-[300px]' placeholder='Recherche' value={search} onChange={(e)=>addSearch(e.target.value)}/>
                         <FaSearch className='absolute top-3 right-2 text-lg'/>
                     </div> 
@@ -116,7 +116,7 @@ const Table = ({thead, tbody, tableFor, toggleDisplayAdd, getClient, toggleDispl
             }
                 <div className='overflow-x-auto'>
                     <table className='w-full mt-6 bg-gray-200 rounded min-w-[700px]'>
-                        <thead className='bg-[#aa8362] text-white border-b-5 border-white'>
+                        <thead className='bg-[#125686] text-white border-b-5 border-white'>
                             <tr>
                                 {
                                     thead.map((th, i)=> {

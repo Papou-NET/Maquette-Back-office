@@ -38,7 +38,7 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
           onClick={() => onPageChange(page)}
           style={{
             ...buttonStyle,
-            backgroundColor: page === currentPage ? "#aa8362" : "#ccc",
+            backgroundColor: page === currentPage ? "#125686" : "#ccc",
             color: page === currentPage ? "#fff" : "#000",
             fontWeight: page === currentPage ? "bold" : "normal"
           }}

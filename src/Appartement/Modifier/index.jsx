@@ -158,7 +158,7 @@ const ModifierAppartement = ({reloadCard}) => {
         <div className="text-center mt-6">
           <button
             type="submit"
-            className="w-full md:w-[300px] h-[50px] bg-[#aa8362] rounded-md text-white font-bold cursor-pointer"
+            className="w-full md:w-[300px] h-[50px] bg-[#125686] rounded-md text-white font-bold cursor-pointer"
           >
             Enregistrer
           </button>

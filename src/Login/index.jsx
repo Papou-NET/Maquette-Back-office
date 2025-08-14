@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ImageLogin from "../assets/Logo-achakar-fond-transparent.png";
 import fond from "../assets/fond.jpg";
-import { Link, useNavigate } from 'react-router-dom';
-import { appartementAPI, login } from '../API/api';
+import { useNavigate } from 'react-router-dom';
+import { login } from '../API/api';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 
@@ -16,6 +16,7 @@ const Login = () => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false); // <-- ajout état loading
 
     const usernameLabel = () => {
         if (usernameRef.current.classList.contains("top-[15px]")) {
@@ -67,38 +68,42 @@ const Login = () => {
         e.preventDefault();
 
         if (username === "" || password === "") {
-            Swal.fire('Action annulé !', 'Information incomplète', 'warning')
+            Swal.fire('Action annulée !', 'Information incomplète', 'warning');
         } else {
-            try{
-                const credentials = {username, password}
-                const res = await login(credentials)
+            try {
+                setLoading(true); // active le loader
+                const credentials = { username, password };
+                const res = await login(credentials);
                 sessionStorage.setItem("token", res.data.token);
                 sessionStorage.setItem("admin", JSON.stringify(res.data.admin));
+
+                toast.success(`Bienvenue ${res.data.admin.username}`);
                 navigate("/dashboard");
-                toast.success(`Bienvenue ${res.data.admin.username}`)
             }
             catch (error) {
                 console.log('Erreur de connexion', error);
-                Swal.fire('Action annulé !', "Identifiants non cohérantes !", 'warning')
-              }
+                Swal.fire('Action annulée !', "Identifiants non cohérents !", 'warning');
+            } finally {
+                setLoading(false); // désactive le loader
+            }
         }
     };
 
     return (
         <div
-            className="w-full h-screen flex flex-col md:flex-row justify-around items-center gap-6 p-4 md:p-9 bg-cover bg-center"
+            className="w-full h-screen flex flex-col md:flex-row justify-around items-center gap-6 p-4 md:p-9 bg-cover bg-center relative"
             style={{
                 backgroundImage: `url(${fond})`,
             }}
         >
-            {/* Couche semi-transparente pour mieux voir le formulaire */}
+            {/* Couche semi-transparente */}
             <div className="absolute inset-0 bg-black/30"></div>
-    
-            {/* Image */}
+
+            {/* Logo */}
             <div className="relative flex justify-center items-center z-10 w-full md:w-1/2 md:h-full rounded-xl overflow-hidden">
                 <img src={ImageLogin} className='ml-20' />
             </div>
-    
+
             {/* Formulaire */}
             <div className="relative z-10 w-full md:w-1/2 flex flex-col justify-center px-4 md:px-[30px]">
                 <h2 className="mt-6 md:mt-[15%] mb-6 md:mb-[40px] text-center text-3xl md:text-5xl font-semibold text-white">
@@ -122,7 +127,7 @@ const Login = () => {
                             onChange={(e) => setUsername(e.target.value)}
                         />
                     </div>
-    
+
                     <div className="relative mt-6">
                         <label
                             className="text-sm absolute top-[15px] left-5 cursor-text text-white bg-[#00345C] duration-400"
@@ -140,14 +145,21 @@ const Login = () => {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-    
+
                     <button
                         type="submit"
-                        className="mt-10 bg-[#fff] text-blue-900 w-full py-3 font-semibold rounded-md cursor-pointer"
+                        disabled={loading}
+                        className={`mt-10 w-full py-3 font-semibold rounded-md cursor-pointer flex justify-center items-center ${
+                            loading ? "bg-gray-400" : "bg-[#fff] text-blue-900"
+                        }`}
                     >
-                        Se connecter
+                        {loading ? (
+                            <div className="w-6 h-6 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+                        ) : (
+                            "Se connecter"
+                        )}
                     </button>
-    
+
                     <div className="mt-6 md:mt-[15%] w-full flex justify-center">
                         <p className="w-[90%] md:w-[80%] text-xs md:text-sm text-center text-gray-200">
                             Gérer votre plateforme de MAQUETTE ORBITALE.
@@ -157,6 +169,6 @@ const Login = () => {
             </div>
         </div>
     );
-    };
+};
 
 export default Login;

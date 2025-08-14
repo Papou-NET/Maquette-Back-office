@@ -37,20 +37,25 @@ const Dashboard = ({fetchCardData}) => {
     return (
         <div>
             <div>
-                <div className='w-full flex justify-center flex-wrap align-center gap-[20px]'>
-                    <DashboardCard title="Appartement" value={nbAppart} />
-                    <DashboardCard title="Disponible" value={nbDispo}/>
-                    <DashboardCard title="Vendu" value={nbVendu}/>
-                    <DashboardCard title="Réservé" value={nbReserve}/>
+                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5'>
+                    <DashboardCard className="w-full" title="Appartement" value={nbAppart} />
+                    <DashboardCard className="w-full" title="Disponible" value={nbDispo}/>
+                    <DashboardCard className="w-full" title="Vendu" value={nbVendu}/>
+                    <DashboardCard className="w-full" title="Réservé" value={nbReserve}/>
                 </div>
-                <div className='w-full h-auto h-auto flex justify-center flex-wrap gap-[50px] mt-[25px]'>
-                   <div className='p-1 rounded-2xl border-3 border-[#000] w-[90%] h-[300px] md:h-[400px] md:w-[60%]'>
-                        <div className='overflow-auto w-full h-full p-1'>
-                            <BarChartCard fetchCardData={fetchCardData}/>
-                        </div>
-                   </div>
-                    <RecentActivities fetchCardData={fetchCardData}/> 
-                </div>
+                <div className='flex flex-col lg:flex-row justify-between gap-10 mt-10'>
+    {/* Graphique */}
+    <div className='w-full lg:w-[60%] max-w-[900px] h-[300px] md:h-[400px] p-1 rounded-2xl border border-[#000]'>
+        <div className='w-full h-full'>
+            <BarChartCard fetchCardData={fetchCardData}/>
+        </div>
+    </div>
+
+    {/* Activités récentes */}
+    <div className='w-full lg:w-[40%]'>
+        <RecentActivities fetchCardData={fetchCardData}/> 
+    </div>
+</div>
             </div>
         </div>
     );

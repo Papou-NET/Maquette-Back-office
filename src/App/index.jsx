@@ -92,13 +92,13 @@ const App = () => {
                  <PrivateRoute>
                     <div className='relative w-full h-screen overflow-hidden'>
                         <Sidebar sidebarCollapsed={sidebarCollapsed} toggleSidebar={toggleSidebar}/>
-                        <div className='w-[140px] h-[50px] rounded-2xl bg-[#aa8362] fixed top-[10px] sm:right-[10px] z-50 hidden sm:flex
+                        <div className='w-[140px] h-[50px] rounded-2xl bg-[#125686] fixed top-[10px] sm:right-[10px] z-50 hidden sm:flex
                         justify-evenly items-center text-xl text-white'>
                           <MdOutlinePersonOutline className='cursor-pointer'/>
                           <IoSettingsSharp className='cursor-pointer'/>
                           <RiLogoutBoxRLine className='cursor-pointer' onClick={logout}/>
                         </div>
-                        <div className={`absolute top-[70px] left-[10px]  right-[0] h-[90%] p-4 pr-[30px] z-10
+                        <div className={`absolute top-[120px] left-[10px]  right-[0] h-[90%] p-4 pr-[30px] z-10
                          transition-all duration-500 ease-in-out overflow-y-auto
                           ${sidebarCollapsed ? 'lg:left-[10px]' : 'lg:left-[310px]'}`}>
                           <Routes>
