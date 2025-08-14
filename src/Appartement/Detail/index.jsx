@@ -47,7 +47,7 @@ const DetailAppartement = () => {
 
     return (
         <>
-            <h1 className='text-xl md:text-4xl font-bold'>Detail de l'appartement : {data.idAppart}</h1>
+            <h1 className='text-xl md:text-4xl font-bold'>Detail de l'appartement : {data.lotAppart}</h1>
             <div className='flex flex-wrap gap-[10px] justify-center items-center mt-[30px]'>
                 <div className='w-[50%] min-w-[300px] sm:min-w-[400px] overfow-x-auto'>
                     <img src={AppatImg} className='w-full h-auto'/>

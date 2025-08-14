@@ -132,8 +132,8 @@ const Table = ({thead, tbody, tableFor, toggleDisplayAdd, getClient, toggleDispl
                                 records.map((data, i)=> {
                                     const rowClass =
                                     i % 2 === 0
-                                    ? "bg-gray-200 text-black"
-                                    : "bg-gray-300 text-black";
+                                    ? "bg-blue-50 text-black"
+                                    : "bg-blue-100 text-black";
                                     return  <tr key={i} className={`text-right font-semibold ${rowClass}`}>
                                         {
                                             tableFor==="Appartements" && 
@@ -142,8 +142,16 @@ const Table = ({thead, tbody, tableFor, toggleDisplayAdd, getClient, toggleDispl
                                                 <td className='py-3 pr-2'>{data.etageAppart}</td>
                                                 <td className='py-3 pr-2'>{data.lotAppart}</td>
                                                 <td className='py-3 pr-2'>{data.typologieAppart}</td>
-                                                <td className='py-3 pr-2'>{data.surfaceAppart}</td>
-                                                <td className='py-3 pr-2'>{data.statutAppart}</td>
+                                                <td className='py-3 pr-2'>{data.surfaceAppart} m²</td>
+                                                <td className='pr-2'
+                                                >
+                                                <span
+                                                className={`px-2 py-1 font-bold rounded text-center
+                                                    ${data.statutAppart === "Disponible" ? "text-blue-600 bg-blue-200" : ""}
+                                                    ${data.statutAppart === "Réservé" ? "text-green-600 bg-green-200" : ""}
+                                                    ${data.statutAppart === "Vendu" ? "text-red-600 bg-red-200" : ""}`}>
+                                                {data.statutAppart}</span>
+                                                </td>
                                                 <td className='flex gap-4 justify-center py-3'>
                                                     <FaEye className="cursor-pointer" 
                                                     onClick={()=>navigate(`/appartements/${data.idAppart}`)}/>

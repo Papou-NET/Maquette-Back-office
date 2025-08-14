@@ -4,7 +4,7 @@ import { appartementAPI } from '../API/api';
 
 const Appartement = () => {
 
-    const tableheader = ["Batiment", "Etage", "Lot", 'Typologie', "Surface", "Statut", "Action"]
+    const tableheader = ["Villa", "Etage", "Lot", 'Typologie', "Surface", "Statut", "Action"]
 
    const [tableData, setTableData] = useState([])
 
