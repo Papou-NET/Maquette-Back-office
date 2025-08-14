@@ -23,12 +23,12 @@ const RecentActivities = ({fetchCardData}) => {
     }, [fetchCardData])
 
     return (
-        <div className='h-[400px] w-[310px] rounded-xl bg-[#1d2c31] p-[20px]'>
+        <div className='h-[400px] w-full rounded-xl bg-[#1d2c31] p-[20px]'>
             <h3 className='font-bold text-white'>Activités récentes</h3>
             <div className='flex flex-col justify-start h-full mt-6'>
                 {
                     recentData.map((activity, index) => {
-                        return <div className='h-auto bg-white mb-2 text-black text-[#797166] font-bold flex flex-col
+                        return <div className='h-auto bg-white mb-2  text-[#797166] font-bold flex flex-col
                         justify-between px-4 py-2 gap-[8px]' key={index}>
                                     <div className='flex justify-between items-center'>
                                         <h4 className='uppercase'>{activity.type}</h4>

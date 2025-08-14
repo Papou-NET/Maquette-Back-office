@@ -43,7 +43,7 @@ const RechercheAppartement = ({ handleDisplayAppartement, getAppart, appartClick
         />
 
         {/* Barre de recherche */}
-        <div className="border-2 border-[#aa8362] relative rounded-[25px] px-4 py-2 mt-2">
+        <div className="border-2 border-[#125686] relative rounded-[25px] px-4 py-2 mt-2">
           <input
             type="text"
             className="outline-none w-full pr-8"
@@ -62,7 +62,7 @@ const RechercheAppartement = ({ handleDisplayAppartement, getAppart, appartClick
         {/* Table */}
         <div className="overflow-x-auto mt-4">
           <table className="w-full bg-gray-200 rounded text-sm md:text-base">
-            <thead className="bg-[#aa8362] text-white">
+            <thead className="bg-[#125686] text-white">
               <tr>
                 <th className="p-2">ID</th>
                 <th className="p-2">Bâtiment</th>
@@ -110,7 +110,7 @@ const RechercheAppartement = ({ handleDisplayAppartement, getAppart, appartClick
         {/* Boutons */}
         <div className="flex flex-col sm:flex-row justify-around gap-2 mt-4">
           <button
-            className="w-full sm:w-[45%] py-2 cursor-pointer bg-[#aa8362] text-white font-semibold rounded-md"
+            className="w-full sm:w-[45%] py-2 cursor-pointer bg-[#125686] text-white font-semibold rounded-md"
             onClick={handleDisplayAppartement}
           >
             Valider

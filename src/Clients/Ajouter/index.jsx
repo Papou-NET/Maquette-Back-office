@@ -146,7 +146,7 @@ const AjouterClient = ({ toggleDisplayAdd }) => {
           </div>
 
           {/* Bouton Ajouter */}
-          <button className="font-bold text-white py-3 rounded-md bg-[#aa8362] mt-4 w-full cursor-pointer">
+          <button className="font-bold text-white py-3 rounded-md bg-[#125686] mt-4 w-full cursor-pointer">
             Ajouter
           </button>
         </form>

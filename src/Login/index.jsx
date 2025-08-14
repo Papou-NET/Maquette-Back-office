@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import ImageLogin from "../assets/login_image.png";
-import { Link, useNavigate } from 'react-router-dom';
-import { appartementAPI, login } from '../API/api';
+import ImageLogin from "../assets/Logo-achakar-fond-transparent.png";
+import fond from "../assets/fond.jpg";
+import { useNavigate } from 'react-router-dom';
+import { login } from '../API/api';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 
@@ -15,6 +16,7 @@ const Login = () => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false); // <-- ajout état loading
 
     const usernameLabel = () => {
         if (usernameRef.current.classList.contains("top-[15px]")) {
@@ -66,39 +68,51 @@ const Login = () => {
         e.preventDefault();
 
         if (username === "" || password === "") {
-            Swal.fire('Action annulé !', 'Information incomplète', 'warning')
+            Swal.fire('Action annulée !', 'Information incomplète', 'warning');
         } else {
-            try{
-                const credentials = {username, password}
-                const res = await login(credentials)
+            try {
+                setLoading(true); // active le loader
+                const credentials = { username, password };
+                const res = await login(credentials);
                 sessionStorage.setItem("token", res.data.token);
                 sessionStorage.setItem("admin", JSON.stringify(res.data.admin));
+
+                toast.success(`Bienvenue ${res.data.admin.username}`);
                 navigate("/dashboard");
-                toast.success(`Bienvenue ${res.data.admin.username}`)
             }
             catch (error) {
                 console.log('Erreur de connexion', error);
-                Swal.fire('Action annulé !', "Identifiants non cohérantes !", 'warning')
-              }
+                Swal.fire('Action annulée !', "Identifiants non cohérents !", 'warning');
+            } finally {
+                setLoading(false); // désactive le loader
+            }
         }
     };
 
     return (
-        <div className="w-full h-screen flex flex-col md:flex-row gap-6 p-4 md:p-9">
-            {/* Image */}
-            <div className="w-full md:w-1/2 md:h-full rounded-xl overflow-hidden">
-                <img src={ImageLogin} className="object-cover" />
+        <div
+            className="w-full h-screen flex flex-col md:flex-row justify-around items-center gap-6 p-4 md:p-9 bg-cover bg-center relative"
+            style={{
+                backgroundImage: `url(${fond})`,
+            }}
+        >
+            {/* Couche semi-transparente */}
+            <div className="absolute inset-0 bg-black/30"></div>
+
+            {/* Logo */}
+            <div className="relative flex justify-center items-center z-10 w-full md:w-1/2 md:h-full rounded-xl overflow-hidden">
+                <img src={ImageLogin} className="ml-0 md:ml-20" />
             </div>
 
             {/* Formulaire */}
-            <div className="w-full md:w-1/2 flex flex-col justify-center px-4 md:px-[30px]">
-                <h2 className="mt-6 md:mt-[15%] mb-6 md:mb-[40px] text-center text-3xl md:text-5xl font-semibold">
+            <div className="relative z-10 w-full md:w-1/2 flex flex-col justify-center px-4 md:px-[30px]">
+                <h2 className="mt-6 md:mt-[15%] mb-6 md:mb-[40px] text-center text-3xl md:text-5xl font-semibold text-white">
                     Se connecter
                 </h2>
                 <form className="px-2 md:px-[10%]" onSubmit={submitLogin}>
                     <div className="relative">
                         <label
-                            className="text-sm absolute top-[15px] left-5 cursor-text bg-white duration-400"
+                            className="text-sm absolute top-[15px] left-5 cursor-text bg-[#00345C] text-white duration-400"
                             ref={usernameRef}
                             onClick={usernameLabel}
                         >
@@ -106,7 +120,7 @@ const Login = () => {
                         </label>
                         <input
                             type="text"
-                            className="block w-full border-2 border-[#aa8362] rounded-lg outline-none text-md px-5 py-3"
+                            className="block w-full border-2 border-[#fff] text-white font-bold rounded-lg outline-none text-md px-5 py-3"
                             ref={inputUserNameRef}
                             onClick={usernameLabel}
                             value={username}
@@ -116,7 +130,7 @@ const Login = () => {
 
                     <div className="relative mt-6">
                         <label
-                            className="text-sm absolute top-[15px] left-5 cursor-text bg-white duration-400"
+                            className="text-sm absolute top-[15px] left-5 cursor-text text-white bg-[#00345C] duration-400"
                             ref={passwordRef}
                             onClick={passwordLabel}
                         >
@@ -124,7 +138,7 @@ const Login = () => {
                         </label>
                         <input
                             type="password"
-                            className="block w-full border-2 border-[#aa8362] rounded-lg outline-none text-md px-5 py-3"
+                            className="block w-full border-2 border-[#fff] text-white font-bold rounded-lg outline-none text-md px-5 py-3"
                             ref={inputPassRef}
                             onClick={passwordLabel}
                             value={password}
@@ -134,14 +148,21 @@ const Login = () => {
 
                     <button
                         type="submit"
-                        className="mt-10 bg-[#aa8362] w-full py-3 text-white font-semibold rounded-md cursor-pointer"
+                        disabled={loading}
+                        className={`mt-10 w-full py-3 font-semibold rounded-md cursor-pointer flex justify-center items-center ${
+                            loading ? "bg-gray-400" : "bg-[#fff] text-blue-900"
+                        }`}
                     >
-                        Se connecter
+                        {loading ? (
+                            <div className="w-6 h-6 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+                        ) : (
+                            "Se connecter"
+                        )}
                     </button>
 
                     <div className="mt-6 md:mt-[15%] w-full flex justify-center">
-                        <p className="w-[90%] md:w-[80%] text-xs md:text-sm text-center text-gray-400">
-                            Lorem ipsum dolor sit amet consectetur. Eum neque, minima iusto beatae suscipit temporibus quos !
+                        <p className="w-[90%] md:w-[80%] text-xs md:text-sm text-center text-gray-200">
+                            Gérer votre plateforme de MAQUETTE ORBITALE.
                         </p>
                     </div>
                 </form>
