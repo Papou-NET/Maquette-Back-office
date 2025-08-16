@@ -19,6 +19,8 @@ import ModifierClient from '../Clients/Modifier';
 import DetailReservation from '../Reservation/Detail';
 import AjoutReservation from '../Reservation/Ajout';
 import { ToastContainer } from 'react-toastify';
+import { jwtDecode } from 'jwt-decode';
+import Swal from 'sweetalert2';
 
 const App = () => {
 
@@ -74,6 +76,21 @@ const App = () => {
     sessionStorage.removeItem("token")
     window.location.reload()
   }
+
+useEffect(()=>{
+  const token = sessionStorage.getItem("token")
+  const current = Date.now() / 1000
+  if(token) {
+    const decode = jwtDecode(token)
+    if(decode.exp && decode.exp < current) {
+      Swal.fire("Session expiré !", "Veuillez vous reconnectez !", "warning")
+      setTimeout(()=>{
+        logout()
+      }, 3000)
+    }
+  }
+},[])
+
   return (
     <Fragment>
         <ToastContainer />

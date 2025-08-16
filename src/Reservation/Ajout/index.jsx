@@ -27,15 +27,21 @@ const AjoutReservation = ({ toggledisplayreservation }) => {
   const submitReservation = async (e) => {
     e.preventDefault();
     const newData = { ...data, appartement: appartClicked.idAppart, client: clientClicked.id };
-    try {
-      await reservationAPI.create(newData);
-      Swal.fire('Opération réussie !', 'Enregistrement éffectué avec succès', 'success');
-      toggledisplayreservation();
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000);
-    } catch (error) {
-      console.log(error);
+    const debut = new Date(data.dateDeb);
+      const fin = new Date(data.dateFin);
+    if(debut < fin){
+      try {
+        await reservationAPI.create(newData);
+        Swal.fire('Opération réussie !', 'Enregistrement éffectué avec succès', 'success');
+        toggledisplayreservation();
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      Swal.fire("Dates incohérentes !", "La date de fin ne peut pas être avant la date de début.", "warning")
     }
   };
 
