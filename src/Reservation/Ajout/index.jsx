@@ -29,8 +29,9 @@ const AjoutReservation = ({ toggledisplayreservation }) => {
     const newData = { ...data, appartement: appartClicked.idAppart, client: clientClicked.id };
     const debut = new Date(data.dateDeb);
       const fin = new Date(data.dateFin);
-    if(debut < fin){
+    if(data.type === "location" && debut < fin){
       try {
+        newData.dateVente = null;
         await reservationAPI.create(newData);
         Swal.fire('Opération réussie !', 'Enregistrement éffectué avec succès', 'success');
         toggledisplayreservation();
@@ -40,7 +41,22 @@ const AjoutReservation = ({ toggledisplayreservation }) => {
       } catch (error) {
         console.log(error);
       }
-    } else {
+    }
+    else if(data.type === "vente" && data.dateVente !== null) {
+      try {
+        newData.dateDeb = null;
+        newData.dateFin = null;
+        await reservationAPI.create(newData);
+        Swal.fire('Opération réussie !', 'Enregistrement éffectué avec succès', 'success');
+        toggledisplayreservation();
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+      } catch (error) {
+        console.log(error);
+      }
+    } 
+    else {
       Swal.fire("Dates incohérentes !", "La date de fin ne peut pas être avant la date de début.", "warning")
     }
   };
