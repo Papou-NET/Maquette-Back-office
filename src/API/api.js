@@ -3,7 +3,7 @@ import axios from "axios";
 const url = "https://back-end-bades.onrender.com"
 
 const api = axios.create({
-    baseURL: "http://localhost:3001",
+    baseURL: "https://back-end-bades.onrender.com",
     headers: {
         "Content-Type": "application/json"
     }
@@ -78,7 +78,9 @@ export const reservationAPI = {
 
     getLastFour: () => api.get('/reservation/lastFour'),
 
-    getBarChart: (year) => api.get(`/reservation/reservationParMois/${year}`)
+    getBarChart: (year) => api.get(`/reservation/reservationParMois/${year}`),
+
+    updateAppartAuto: () => api.get(`/reservation/updateAppartementDisponible`)
 }
 
 // BATIMENTS
